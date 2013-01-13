@@ -1,31 +1,35 @@
 module RubyChessBoard
   class Board
     class BoardFiles
+      attr_reader :files
+
       def initialize
         @files = Array.new(8) { BoardFile.new }
       end
 
-      def file(file_name)
+      def find(file_name)
         file_name = file_name.to_sym
         file_index = FILE_NAMES.index(file_name)
 
-        @files[file_index]
+        files[file_index]
       end
     end
 
     class BoardFile
+      attr_reader :ranks
+
       def initialize
         @ranks = Array.new(8)
       end
 
       def rank(rank_number)
         rank_index = rank_index(rank_number)
-        @ranks[rank_index]
+        ranks[rank_index]
       end
 
       def set_rank(rank_number, value)
         rank_index = rank_index(rank_number) 
-        @ranks[rank_index] = value
+        ranks[rank_index] = value
       end
 
       private
@@ -33,7 +37,8 @@ module RubyChessBoard
       def rank_index(rank_number)
         rank_number.to_i - 1
       end
-    end 
+    end
+
     FILE_NAMES = ('a'..'h').map(&:to_sym)
     RANK_NAMES = (1..8).to_a
 
@@ -75,6 +80,8 @@ module RubyChessBoard
       black: 7
     }
 
+    attr_reader :files
+
     def setup
       MAJOR_PIECE_POSITIONS.each do |color, positions|
         positions.each do |position, piece_class|
@@ -84,7 +91,7 @@ module RubyChessBoard
       
       PAWN_RANKS.each do |color, rank|
         FILE_NAMES.each do |file|
-          square = "#{file}#{rank}".to_sym
+          square = "#{file}#{rank}"
           setup_piece Pawn, color: color, starting_position: square
         end
       end
@@ -94,13 +101,13 @@ module RubyChessBoard
     def at_square(square_name)
       file, rank = file_and_rank(square_name)
 
-      @files.file(file).rank(rank)
+      files.find(file).rank(rank)
     end
 
     # Sets the value of a square, i.e. a1, h8.
     def set_square(square_name, value)
       file, rank = file_and_rank(square_name)
-      @files.file(file).set_rank(rank, value)
+      files.find(file).set_rank(rank, value)
     end
 
     private
