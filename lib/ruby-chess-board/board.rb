@@ -33,8 +33,7 @@ module RubyChessBoard
       def rank_index(rank_number)
         rank_number.to_i - 1
       end
-    end
-
+    end 
     FILE_NAMES = ('a'..'h').map(&:to_sym)
     RANK_NAMES = (1..8).to_a
 
@@ -46,29 +45,49 @@ module RubyChessBoard
         setup
       end
     end
+    
+    MAJOR_PIECE_POSITIONS = {
+      white: {
+        a1: Rook,
+        b1: Knight,
+        c1: Bishop,
+        d1: Queen,
+        e1: King,
+        f1: Bishop,
+        g1: Knight,
+        h1: Rook
+      },
+
+      black: {
+        a8: Rook,
+        b8: Knight,
+        c8: Bishop,
+        d8: Queen,
+        e8: King,
+        f8: Bishop,
+        g8: Knight,
+        h8: Rook
+      }
+    }
+
+    PAWN_RANKS = {
+      white: 2,
+      black: 7
+    }
 
     def setup
-      setup_piece :white, Rook,   :a1
-      setup_piece :white, Knight, :b1
-      setup_piece :white, Bishop, :c1
-      setup_piece :white, Queen,  :d1
-      setup_piece :white, King,   :e1
-      setup_piece :white, Bishop, :f1
-      setup_piece :white, Knight, :g1
-      setup_piece :white, Rook,   :h1
-
-      FILE_NAMES.each { |f| setup_piece :white, Pawn, "#{f}2" }
-
-      setup_piece :black, Rook,   :a8
-      setup_piece :black, Knight, :b8
-      setup_piece :black, Bishop, :c8
-      setup_piece :black, Queen,  :d8
-      setup_piece :black, King,   :e8
-      setup_piece :black, Bishop, :f8
-      setup_piece :black, Knight, :g8
-      setup_piece :black, Rook,   :h8
-
-      FILE_NAMES.each { |f| setup_piece :black, Pawn, "#{f}7" }
+      MAJOR_PIECE_POSITIONS.each do |color, positions|
+        positions.each do |position, piece_class|
+          setup_piece piece_class, color: color, starting_position: position
+        end
+      end
+      
+      PAWN_RANKS.each do |color, rank|
+        FILE_NAMES.each do |file|
+          square = "#{file}#{rank}".to_sym
+          setup_piece Pawn, color: color, starting_position: square
+        end
+      end
     end
 
     # Returns the value of a square, i.e. a1, h8.
@@ -96,10 +115,11 @@ module RubyChessBoard
       return file, rank
     end
 
-    def setup_piece(color, piece_class, square_name)
-      piece = piece_class.new(color, square_name)
+    def setup_piece(piece_class, options = {})
+      piece = piece_class.new color:             options[:color],
+                              starting_position: options[:starting_position]
 
-      set_square(square_name, piece)
+      set_square(options[:starting_position], piece)
     end
 
     def method_missing(method, *args)
@@ -108,7 +128,7 @@ module RubyChessBoard
         at_square(method)
       when pattern = /^[a-h][1-8]=$/
         square = method.gsub("=", '')
-        set_square(method, *args)
+        set_square(square, *args)
       else super
       end
     end
