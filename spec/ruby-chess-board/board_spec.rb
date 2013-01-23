@@ -5,6 +5,23 @@ module RubyChessBoard
     subject(:board) { Board.new }
 
     describe "initialization" do
+      context "when a board is provided" do
+        let(:new_board) { Board.new(board) }
+
+        it "mirrors the board" do
+          board.move_piece(:a2, :a4)
+
+          expect(new_board.a2).to be_kind_of(Board::EmptySquare)
+          expect(new_board.a4).to be_piece(Pawn).with_color(:white).with_starting_position(:a2)
+        end
+
+        it "does not affect the origin board" do
+          new_board.move_piece(:a2, :a4)          
+
+          expect(board.a4).to be_kind_of(Board::EmptySquare)
+        end
+      end
+
       context "when no board is provided" do
         it "sets up the board" do
           expect(board.a1).to be_piece(Rook).with_color(:white).with_starting_position(:a1)
@@ -39,9 +56,43 @@ module RubyChessBoard
 
           (3..6).each do |file|
             ('a'..'h').each do |rank|
-              expect(board.public_send(rank + file.to_s)).to be_nil
+              expect(board.public_send(rank + file.to_s)).to be_kind_of(Board::EmptySquare)
             end
           end
+        end
+      end
+    end
+
+    describe "#move_piece" do
+      def run_method
+        board.move_piece(:a2, :a4)
+      end
+
+      it "makes the old square empty" do
+        expect {
+          run_method
+        }.to change { board.a2 }
+
+        expect(board.a2).to be_kind_of(Board::EmptySquare)
+      end
+
+      it "moves the piece to the new square" do
+        expect { run_method }.to change { board.a4 }
+
+        expect(board.a4).to be_piece(Pawn).with_color(:white).with_starting_position(:a2)
+      end
+    end
+
+    describe "#at_square" do
+      context "when a piece occupies a square" do
+        it "returns the piece" do
+          expect(board.a1).to be_kind_of(Rook) 
+        end
+      end
+
+      context "when no piece occupies a square" do
+        it "returns EmptySquare" do
+          expect(board.g5).to be_kind_of(Board::EmptySquare)
         end
       end
     end
