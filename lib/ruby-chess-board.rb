@@ -1,5 +1,10 @@
-require './lib/ruby-chess-board/piece'
-Dir["./lib/ruby-chess-board/pieces/*.rb"].each { |file| require file }
+require 'rubygems'
+require 'bundler'
 
-Dir["./lib/ruby-chess-board/*.rb"].each { |file| require file }
+Bundler.require(:default)
 
+require_relative 'ruby-chess-board/piece'
+require_all "lib/ruby-chess-board/pieces"
+
+require_relative 'ruby-chess-board/board'
+require_all "lib/ruby-chess-board/"
