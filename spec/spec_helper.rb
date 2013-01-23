@@ -1,7 +1,7 @@
 require_relative '../lib/ruby-chess-board'
 
-Dir['./spec/support/*.rb'].each { |f| require f }
-Dir['./spec/support/matchers/*.rb'].each { |f| require f }
+require_all('spec/support/')
+require_all('spec/support/matchers')
 
 RSpec.configure do |config|
   config.order = :random
