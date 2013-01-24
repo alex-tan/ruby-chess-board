@@ -65,6 +65,8 @@ module RubyChessBoard
     end
 
     def method_missing(method, *args)
+      method = method.to_s
+
       square = /[a-h][1-8]/
       case method
       when pattern = /^#{square}$/
