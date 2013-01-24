@@ -1,9 +1,16 @@
 module RubyChessBoard
   class Board
     EmptySquare = Class.new
+    
+    class <<self
+      def file_names
+        ('a'..'h').map(&:to_sym)
+      end
 
-    FILE_NAMES = ('a'..'h').map(&:to_sym)
-    RANK_NAMES = (1..8).to_a
+      def rank_names
+        (1..8).to_a
+      end
+    end
 
     def initialize(board = nil)
       if board

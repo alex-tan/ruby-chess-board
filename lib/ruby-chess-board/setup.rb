@@ -44,7 +44,7 @@ module RubyChessBoard
         end
         
         PAWN_RANKS.each do |color, rank|
-          FILE_NAMES.each do |file|
+          Board.file_names.each do |file|
             square = "#{file}#{rank}"
             setup_piece Pawn, color: color, starting_position: square
           end
