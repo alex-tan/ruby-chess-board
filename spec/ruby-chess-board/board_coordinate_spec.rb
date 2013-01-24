@@ -45,7 +45,7 @@ module RubyChessBoard
       describe "relative_coordinate_set" do
         context "when x and y are in bounds" do
           it "returns as many coordinates as it can" do
-            expected = (1..7).map { |n| [n, n] }
+            expected = (1..7).map { |n| BoardCoordinate.new(n, n) }
 
             expect(coordinate.relative_coordinate_set(1, 1)).to eq(expected)
           end

@@ -43,7 +43,7 @@ module RubyChessBoard
       set = []
 
       until ! in_bounds?(current_x, current_y)
-        set << [current_x, current_y] 
+        set << BoardCoordinate.new(current_x, current_y)
 
         current_x += x_change
         current_y += y_change
