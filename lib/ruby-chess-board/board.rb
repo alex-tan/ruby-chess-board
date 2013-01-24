@@ -42,14 +42,14 @@ module RubyChessBoard
     def at_square(square_name)
       file, rank = file_and_rank(square_name)
 
-      files.find(file).rank(rank) || EmptySquare.new
+      files[file].rank(rank) || EmptySquare.new
     end
 
     # Sets the value of a square, i.e. a1, h8.
     # @return [void]
     def set_square(square_name, value)
       file, rank = file_and_rank(square_name)
-      files.find(file).set_rank(rank, value)
+      files[file].set_rank(rank, value)
     end
 
     private

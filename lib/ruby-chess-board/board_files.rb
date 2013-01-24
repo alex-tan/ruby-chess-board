@@ -9,8 +9,8 @@ module RubyChessBoard
     def clone 
       Marshal::load(Marshal.dump(self))
     end
-
-    def find(file_name)
+    
+    def [](file_name)
       file_name = file_name.to_sym
       file_index = Board.file_names.index(file_name)
 
