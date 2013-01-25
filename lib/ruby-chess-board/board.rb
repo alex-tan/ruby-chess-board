@@ -1,7 +1,5 @@
 module RubyChessBoard
   class Board
-    EmptySquare = Class.new
-    
     class <<self
       def file_names
         ('a'..'h').map(&:to_sym)
@@ -23,7 +21,25 @@ module RubyChessBoard
 
     attr_reader :files
     
+    # Returns the BoardCoordinate of the piece provided if it
+    # is on the board; otherwise returns nil.
+    # @param [Piece] piece
+    # @return [BoardCoordinate, nil]
+    def coordinates_of(piece)
+      file = files.find { |f| f.has_piece?(piece) }
+      
+      return nil if file.nil?
+
+      x = files.index(file)
+      y = file.ranks.index(piece)
+
+      BoardCoordinate.new(x, y)
+    end
+    
     # Moves whatever is on one square to another.
+    # @param [Symbol] from square name
+    # @param [Symbol] to square name
+    # @return [void]
     def move_piece(from, to)
       moving_piece = at_square(from)
 
@@ -42,7 +58,7 @@ module RubyChessBoard
     def at_square(square_name)
       file, rank = file_and_rank(square_name)
 
-      files[file].rank(rank) || EmptySquare.new
+      files[file].at_rank(rank)
     end
 
     # Sets the value of a square, i.e. a1, h8.

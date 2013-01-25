@@ -11,14 +11,14 @@ module RubyChessBoard
         it "mirrors the board" do
           board.move_piece(:a2, :a4)
 
-          expect(new_board.a2).to be_kind_of(Board::EmptySquare)
+          expect(new_board.a2).to be_empty_square
           expect(new_board.a4).to be_piece(Pawn).with_color(:white).with_starting_position(:a2)
         end
 
         it "does not affect the origin board" do
           new_board.move_piece(:a2, :a4)          
 
-          expect(board.a4).to be_kind_of(Board::EmptySquare)
+          expect(board.a4).to be_empty_square
         end
       end
 
@@ -56,9 +56,31 @@ module RubyChessBoard
 
           (3..6).each do |file|
             ('a'..'h').each do |rank|
-              expect(board.public_send(rank + file.to_s)).to be_kind_of(Board::EmptySquare)
+              expect(board.public_send(rank + file.to_s)).to be_empty_square
             end
           end
+        end
+      end
+    end
+
+    describe "#coordinates_of" do
+      context "when the piece is on the board" do
+        it "returns the board coordinate of the piece provided" do
+          rook = board.a1
+
+          expected = BoardCoordinate.new(:a1)
+
+          expect(board.coordinates_of(rook)).to eq(expected)
+        end
+      end
+
+      context "when the piece isn't on the board" do
+        it "returns nil" do
+          rook = board.a1
+
+          board.a1 = nil
+
+          expect(board.coordinates_of(rook)).to eq(nil)
         end
       end
     end
@@ -73,7 +95,7 @@ module RubyChessBoard
           run_method
         }.to change { board.a2 }
 
-        expect(board.a2).to be_kind_of(Board::EmptySquare)
+        expect(board.a2).to be_empty_square
       end
 
       it "moves the piece to the new square" do
@@ -92,8 +114,20 @@ module RubyChessBoard
 
       context "when no piece occupies a square" do
         it "returns EmptySquare" do
-          expect(board.g5).to be_kind_of(Board::EmptySquare)
+          expect(board.g5).to be_empty_square
         end
+      end
+    end
+
+    describe "#set_square" do
+      it "given a square name and a value, sets that square" do
+        board.set_square(:a2, nil)
+        expect(board.a2).to be_empty_square
+
+        pawn = board.d2
+        board.set_square(:c3, pawn)
+
+        expect(board.c3).to eq(pawn)
       end
     end
   end
