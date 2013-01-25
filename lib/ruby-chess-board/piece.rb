@@ -9,9 +9,9 @@ module RubyChessBoard
     
     # Pieces are equal if their color and starting
     def ==(piece)
+      self.class        == piece.class &&
       color             == piece.color &&
-      starting_position == piece.starting_position &&
-      self.class        == piece.class
+      starting_position == piece.starting_position
     end
 
     def directional_moves(board)
