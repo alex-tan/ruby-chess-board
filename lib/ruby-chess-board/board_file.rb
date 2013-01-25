@@ -2,7 +2,11 @@ module RubyChessBoard
   # Represents a single file made up of 8 ranks.
   class BoardFile
     # Instances of this class are used to represent an empty square.
-    EmptySquare = Class.new
+    class EmptySquare
+      def ==(variable)
+        variable.class == self.class
+      end
+    end
 
     include Enumerable
     
