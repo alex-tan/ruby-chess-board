@@ -10,4 +10,5 @@ end
 
 group :test, :development do
   gem "debugger"
+  gem "yard", "~> 0.8.3"
 end
