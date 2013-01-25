@@ -5,7 +5,8 @@ module RubyChessBoard
     EmptySquare = Class.new
 
     include Enumerable
-
+    
+    # @private
     attr_reader :ranks
     
     def initialize
@@ -25,8 +26,8 @@ module RubyChessBoard
       ranks.each { |rank| yield rank }
     end
     
-    # Returns either a piece if there is something at a square.
-    # Returns an instance of {EmptySquare} otherwise.
+    # Returns either a piece if there is something at a square or
+    # returns an instance of {EmptySquare} if there is not.
     # @return [Piece, EmptySquare]
     def at_rank(rank_number)
       rank_index = rank_index(rank_number)
