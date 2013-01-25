@@ -1,7 +1,7 @@
 module RubyChessBoard
   # Encapsulates eight {BoardFile} objects.
   class BoardFiles
-    include Enumerable
+    include Enumerable, BoardReferences
     
     # @private
     attr_reader :files
@@ -44,12 +44,6 @@ module RubyChessBoard
     # @return [Integer] array index of a file
     def index(file)
       files.index(file)
-    end
-
-    private
-
-    def file_names
-      @file_names ||= Board.file_names
     end
   end
 end
