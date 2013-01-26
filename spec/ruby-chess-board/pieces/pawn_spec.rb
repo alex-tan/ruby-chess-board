@@ -31,7 +31,7 @@ module RubyChessBoard
           it "can take those pieces" do
             board.move_piece(:f8, :e3)
             board.move_piece(:d8, :c3)
-            
+
             expected_moves = [
               coordinates(:d3, :d4),
             ] + coordinates(:e3, :c3)
@@ -50,8 +50,11 @@ module RubyChessBoard
           end 
         end
 
-        it "can take en passant" do
-          pending('Board state implementations')
+        context %(when a black piece moved forward two places the last move and
+                  is in the same rank and an adjoining file) do
+          it "can take en passant" do
+            pending('Game class')
+          end
         end
       end
 
@@ -79,7 +82,7 @@ module RubyChessBoard
           it "can take those pieces" do
             board.move_piece(:a1, :d6)
             board.move_piece(:g1, :f6)
-           
+
             expected_moves = [
               coordinates(:e6, :e5),
             ] + coordinates(:f6, :d6)
@@ -98,9 +101,12 @@ module RubyChessBoard
             expect(pawn.raw_directional_moves(board)).to eq(expected_moves)
           end 
         end
-        
-        it "can take en passant" do
-          pending('Board state implementations')
+
+        context %(when a white piece moved forward two places the last move and
+                  is in the same rank and an adjoining file) do
+          it "can take en passant" do
+            pending('Game class.')
+          end
         end
       end
     end
