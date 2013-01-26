@@ -26,10 +26,10 @@ module RubyChessBoard
     # Returns an array of coordinates and/or coordinate sets in
     # which the piece can move assuming there are no pieces in the way
     # and the move would not put the player in check.
-    # @param [Board] board
+    # @param [Game] game
     # @return [Array]
-    def directional_moves(board)
-      raw_directional_moves(board).reject do |move_or_set|
+    def directional_moves(game)
+      raw_directional_moves(game).reject do |move_or_set|
         empty_set?(move_or_set) || impossible_coordinate?(move_or_set)
       end
     end

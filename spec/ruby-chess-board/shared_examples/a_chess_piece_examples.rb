@@ -67,12 +67,12 @@ module RubyChessBoard
       end
 
       it "returns raw directional moves with empty arrays and impossible coordinates filtered out" do
-        board = Board.new
-        piece.expects(:raw_directional_moves).with(board).returns(raw_moves)
+        game = build(:game)
+        piece.expects(:raw_directional_moves).with(game).returns(raw_moves)
 
         expected_moves = coordinates(:a1, :g5, :f6)
 
-        expect(piece.directional_moves(board)).to eq(expected_moves)
+        expect(piece.directional_moves(game)).to eq(expected_moves)
       end
     end
   end
