@@ -65,6 +65,7 @@ module RubyChessBoard
     # @return [void]
     def set_square(square_name, value)
       file, rank = file_and_rank(square_name)
+
       files[file].set_rank(rank, value)
     end
 
@@ -85,9 +86,9 @@ module RubyChessBoard
 
       square = /[a-h][1-8]/
       case method
-      when pattern = /^#{square}$/
+      when /^#{square}$/
         at_square(method)
-      when pattern = /^#{square}=$/
+      when /^#{square}=$/
         square = method.gsub("=", '')
         set_square(square, *args)
       else super
