@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem "require_all", "~> 1.2.1"
+gem "terminal-table", "~> 1.4.5"
 
 group :test do
   gem "factory_girl", "~> 4.2.0"

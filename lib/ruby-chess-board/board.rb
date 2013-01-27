@@ -18,6 +18,12 @@ module RubyChessBoard
         setup
       end
     end
+    
+    # Returns the board representation as a string.
+    # @return [String]
+    def print
+      BoardPrinter.new(self).print
+    end
 
     attr_reader :files
     
