@@ -59,7 +59,7 @@ module RubyChessBoard
       let(:raw_moves) do
         [
           coordinate(:a1),
-          BoardCoordinate::ImpossibleCoordinate.new,
+          build(:impossible_coordinate),
           coordinate(:g5),
           [],
           coordinate(:f6)
