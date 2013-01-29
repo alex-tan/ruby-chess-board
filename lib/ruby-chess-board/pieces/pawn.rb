@@ -13,21 +13,34 @@ module RubyChessBoard
     end
 
     # @private
-    def raw_directional_moves(board)
+    def raw_directional_moves(game)
+      board    = game.board
       position = board.coordinates_of(self)
       
+      # If the pawn is in the starting rank, then they can move forward either one
+      # square or two.
       if position.rank == starting_rank 
         moves = [ position.relative_coordinate_set(0, rank_direction, limit: 2) ]
+      # Otherwise they only move one square at a time.
       else
         moves = [ position.relative_coordinate(0, rank_direction) ]
       end
-
+      
+      # Check to see if there are pieces to take one square forward in each
+      # adjoining file.
       takeable_coordinates(position).each do |coordinate|
         at_square = board.at_square(coordinate.square_name)
-        moves << coordinate if takeable?(at_square)
+        moves << coordinate if can_take?(at_square) 
       end
 
-      moves
+      moves + en_passant_opportunities(game)
+    end
+
+    # Returns true if the variable is a Piece and its color is the opposite of
+    # the pawn's.
+    # @return [Boolean]
+    def can_take?(variable)
+      variable.kind_of?(Piece) && variable.color == opposite_color 
     end
     
     # The rank that the pawn starts in in a traditional board setup.
@@ -43,16 +56,21 @@ module RubyChessBoard
     end
 
     private
-
-    def takeable?(variable)
-      variable.kind_of?(Piece) && variable.color == opposite_color 
+    
+    # Returns an array of potential en passant opportunities.
+    # @return [Array]
+    def en_passant_opportunities(game)
+      identifier = EnPassantIdentifier.new(game: game, capturing_pawn: self)
+      identifier.opportunities
     end
-
+    
+    # Returns an array of 1-2 squares that may contain pieces the pawn can take.  
+    # @return [Array<BoardCoordinate>]
     def takeable_coordinates(position)
       [
         position.relative_coordinate(1, rank_direction),
         position.relative_coordinate(-1, rank_direction)
-      ].reject { |m| impossible_coordinate?(m) }
+      ].reject { |c| impossible_coordinate?(c) }
     end
   end
 end

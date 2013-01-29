@@ -2,7 +2,9 @@ require 'spec_helper'
 
 module RubyChessBoard
   describe Pawn do
-    let(:board) { build(:board) }
+    let(:game)  { build(:game) }
+    let(:board) { game.board }
+
     subject(:pawn) { build(:pawn) }
 
     it_should_behave_like 'a chess piece'
@@ -14,7 +16,7 @@ module RubyChessBoard
         context "when it's in the second rank" do
           it "can move forward one or two" do
             expected_moves = [coordinates(:d3, :d4)]
-            expect(pawn.raw_directional_moves(board)).to eq(expected_moves)
+            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
           end
         end 
 
@@ -23,7 +25,7 @@ module RubyChessBoard
             pawn # have to load the piece before it's moved
             board.move_piece(:d2, :d3)
             expected_moves = coordinates(:d4) 
-            expect(pawn.raw_directional_moves(board)).to eq(expected_moves)
+            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
           end
         end
 
@@ -36,7 +38,7 @@ module RubyChessBoard
               coordinates(:d3, :d4),
             ] + coordinates(:e3, :c3)
 
-            expect(pawn.raw_directional_moves(board)).to eq(expected_moves)
+            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
           end
         end
 
@@ -46,14 +48,28 @@ module RubyChessBoard
             board.move_piece(:h1, :c3)
 
             expected_moves = [coordinates(:d3, :d4)]
-            expect(pawn.raw_directional_moves(board)).to eq(expected_moves)
+            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
           end 
         end
 
         context %(when a black piece moved forward two places the last move and
                   is in the same rank and an adjoining file) do
-          it "can take en passant" do
-            pending('Game class')
+          let(:boards) do
+            board_1 = Board.new
+            board_2 = Board.new(board_1)
+            board_2.move_piece(:d2, :d5)
+            board_3 = Board.new(board_2)
+            board_3.move_piece(:e7, :e5)
+            [board_1, board_2, board_3]
+          end
+
+          let(:game) { Game.new(boards) }
+
+          it "can take en passant in the rank the white piece just skipped" do
+            pawn # load pawn
+            game.last
+            expected_moves = coordinates(:d6, :e6)
+            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
           end
         end
       end
@@ -65,7 +81,7 @@ module RubyChessBoard
           it "can move down one or two ranks" do
             expected_moves = [coordinates(:e6, :e5)]
 
-            expect(pawn.raw_directional_moves(board)).to eq(expected_moves)
+            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
           end
         end
 
@@ -74,7 +90,7 @@ module RubyChessBoard
             pawn # load piece before it's moved
             board.move_piece(:e7, :e6)
             expected_moves = coordinates(:e5) 
-            expect(pawn.raw_directional_moves(board)).to eq(expected_moves)
+            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
           end
         end
 
@@ -87,7 +103,7 @@ module RubyChessBoard
               coordinates(:e6, :e5),
             ] + coordinates(:f6, :d6)
 
-            expect(pawn.raw_directional_moves(board)).to eq(expected_moves)
+            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
           end
         end
 
@@ -98,14 +114,28 @@ module RubyChessBoard
 
             expected_moves = [coordinates(:e6, :e5)]
 
-            expect(pawn.raw_directional_moves(board)).to eq(expected_moves)
+            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
           end 
         end
 
         context %(when a white piece moved forward two places the last move and
                   is in the same rank and an adjoining file) do
-          it "can take en passant" do
-            pending('Game class.')
+          let(:boards) do
+            board_1 = Board.new
+            board_2 = Board.new(board_1)
+            board_2.move_piece(:e7, :e4)
+            board_3 = Board.new(board_2)
+            board_3.move_piece(:d2, :d4)
+            [board_1, board_2, board_3]
+          end
+
+          let(:game) { Game.new(boards) }
+
+          it "can take en passant in the rank the white piece just skipped" do
+            pawn # load pawn
+            game.last
+            expected_moves = coordinates(:e3, :d3)
+            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
           end
         end
       end
