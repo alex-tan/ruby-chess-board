@@ -76,6 +76,11 @@ module RubyChessBoard
         expect(coord.square_name).to eq(:a1)
       end
     end
+    
+    describe "#file" do
+      it "returns the file name of the position" do
+        expect(coordinate.file).to eq(:a)
+      end
     end
 
     describe "relative_coordinate" do

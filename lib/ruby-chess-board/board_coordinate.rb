@@ -32,6 +32,12 @@ module RubyChessBoard
       y + 1
     end
 
+    # Returns the file name of the coordinate.
+    # @return [Symbol]
+    def file
+      file_names[y]
+    end
+
     # Is true if the coordinates' x's and y's are equal.
     # @param [BoardCoordinate] coordinate
     # @return [Boolean]
