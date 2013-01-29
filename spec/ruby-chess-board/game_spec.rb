@@ -30,10 +30,25 @@ module RubyChessBoard
       end
     end
 
+    describe "#board_at_move" do
+      it "returns the board at a given move number" do
+        expect(game.board_at_move(0)).to eq(boards[0]) 
+        expect(game.board_at_move(1)).to eq(boards[1])
+      end
+
+      it "does not change the game move number" do
+        expect { game.board_at_move(1) }.to_not change { game.move }
+      end
+    end
+
     describe "#forward" do
       context "when there are more boards to move forward to" do
         it "ups the move by 1" do
           expect { game.forward }.to change { game.move }.by(1)
+        end
+
+        it "returns the board" do
+          expect(game.forward).to eq(boards.last)
         end
       end
 
@@ -56,9 +71,14 @@ module RubyChessBoard
 
     describe "#back" do
       context "when there are boards to move back to" do
+        before { game.forward }
+
         it "decreases the move by 1" do
-          game.forward
           expect { game.back }.to change { game.move }.by(-1)
+        end
+
+        it "returns the board" do
+          expect(game.back).to eq(boards.first)
         end
       end
 
@@ -75,6 +95,18 @@ module RubyChessBoard
           
           expect(game.move).to eq(0)
         end
+      end
+    end
+
+    describe "#last" do
+      let(:boards) { Array.new(4) { Board.new } }
+
+      it "jumps to the last move" do
+        expect { game.last }.to change { game.move }.to(3)
+      end
+
+      it "returns the last board" do
+        expect(game.last).to eq(boards.last)
       end
     end
   end
