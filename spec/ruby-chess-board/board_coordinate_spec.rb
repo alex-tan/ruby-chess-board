@@ -34,6 +34,12 @@ module RubyChessBoard
 
         it { should_not eq(coordinate_2) }
       end
+
+      context "when they are not of the same class" do
+        let(:coordinate_2) { BoardCoordinate::ImpossibleCoordinate.new }
+
+        it { should_not eq(coordinate_2) }
+      end
     end
 
     describe "initialize" do

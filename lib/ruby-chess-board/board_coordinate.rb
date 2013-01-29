@@ -51,7 +51,9 @@ module RubyChessBoard
     # @param [BoardCoordinate] coordinate
     # @return [Boolean]
     def ==(coordinate)
-      x == coordinate.x && y == coordinate.y
+      coordinate.kind_of?(BoardCoordinate) &&
+        x == coordinate.x &&
+        y == coordinate.y
     end
 
     # Given a relative change in x and y, returns a BoardCoordinate
