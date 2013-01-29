@@ -1,5 +1,12 @@
 module RubyChessBoard
   class Piece
+    class <<self
+      # Colors a piece can be.
+      def colors
+        [:white, :black]
+      end
+    end
+
     include CoordinateHelpers
 
     # @return [Symbol] either :white or :black
