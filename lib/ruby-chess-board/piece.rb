@@ -69,6 +69,12 @@ module RubyChessBoard
       variable.kind_of?(Piece) && variable.color == opposite_color 
     end
 
+    # Returns true if the variable is a Piece and its color is the same.
+    # @return [Boolean]
+    def ally?(variable)
+      variable.kind_of?(Piece) && variable.color == color
+    end
+
     private
         
     def empty_set?(variable)
