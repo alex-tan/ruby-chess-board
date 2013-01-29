@@ -55,7 +55,7 @@ module RubyChessBoard
       end
     end
 
-    describe "directional_moves" do
+    describe "#directional_moves" do
       let(:raw_moves) do
         [
           coordinate(:a1),
@@ -73,6 +73,30 @@ module RubyChessBoard
         expected_moves = coordinates(:a1, :g5, :f6)
 
         expect(piece.directional_moves(game)).to eq(expected_moves)
+      end
+    end
+      
+    describe "#opponent?" do
+      context "when the variable is not a piece" do
+        it "is false" do
+          square = build(:empty_square)
+          expect(piece.opponent?(square)).to be_false
+        end
+      end
+
+      context "when the variable is a piece of the same color" do
+        it "is false" do
+          opponent = piece_factory(color: piece.color)
+          expect(piece.opponent?(opponent)).to be_false
+        end
+      end
+
+      context "when the variable is a piece of a differnt color" do
+        it "is true" do
+          alternate_color = (Piece.colors - [piece.color]).first
+          opponent = piece_factory(color: alternate_color)
+          expect(piece.opponent?(opponent)).to be_true
+        end
       end
     end
   end

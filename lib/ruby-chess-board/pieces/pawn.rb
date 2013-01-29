@@ -30,7 +30,7 @@ module RubyChessBoard
       # adjoining file.
       takeable_coordinates(position).each do |coordinate|
         at_square = board.at_square(coordinate.square_name)
-        moves << coordinate if can_take?(at_square) 
+        moves << coordinate if opponent?(at_square) 
       end
 
       moves + en_passant_opportunities(game)

@@ -65,7 +65,7 @@ module RubyChessBoard
 
     # Returns true if the variable is a Piece and its color is the opposite.
     # @return [Boolean]
-    def can_take?(variable)
+    def opponent?(variable)
       variable.kind_of?(Piece) && variable.color == opposite_color 
     end
 

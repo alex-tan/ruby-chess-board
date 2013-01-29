@@ -95,7 +95,7 @@ module RubyChessBoard
     # of the capturing pawn.
     # @return [Boolean]
     def opponent_pawn?(variable)
-      variable.kind_of?(Pawn) && capturing_pawn.can_take?(variable) 
+      variable.kind_of?(Pawn) && capturing_pawn.opponent?(variable) 
     end
 
     # The current position of the capturing pawn.
