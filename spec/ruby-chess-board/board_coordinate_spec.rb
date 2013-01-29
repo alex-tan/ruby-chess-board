@@ -40,50 +40,88 @@ module RubyChessBoard
       describe "initialization with a square name" do
         context "when a1" do
           subject(:coordinate) { BoardCoordinate.new(:a1) } 
-          
-          its(:x) { should == 0 }
-          its(:y) { should == 0 }
-          its(:square_name) { should == :a1 } 
+
+          it_behaves_like 'an a1 coordinate'
         end 
 
         context "when h8" do
           subject(:coordinate) { BoardCoordinate.new(:h8) } 
 
-          its(:x) { should == 7 }
-          its(:y) { should == 7 }
-          its(:square_name) { should == :h8 }
+          it_behaves_like 'an h8 coordinate'
         end 
 
         context "when g6" do
           subject(:coordinate) { BoardCoordinate.new(:g6) } 
 
-          its(:x) { should == 6 }
-          its(:y) { should == 5 }
-          its(:square_name) { should == :g6 }
+          it_behaves_like "a g6 coordinate"
         end
       end
 
-      it "initializes with an x and a y" do
-        expect(coordinate.x).to eq(0)
-        expect(coordinate.y).to eq(0)
-        expect(coordinate.square_name).to eq(:a1)
-      end
+      describe "initialization with an x and y" do
+        context "when a1" do
+          subject(:coordinate) { BoardCoordinate.new(0, 0) }
 
-      it "initializes with a file and a rank" do
-        coord = BoardCoordinate.new(:a, 1)
-        expect(coord.x).to eq(0)
-        expect(coord.y).to eq(0)
-        expect(coord.square_name).to eq(:a1)
+          it_behaves_like 'an a1 coordinate'
+        end
+
+        context "when h8" do
+          subject(:coordinate) { BoardCoordinate.new(7, 7) }
+
+          it_behaves_like 'an h8 coordinate'
+        end
+
+        context "when g6" do
+          subject(:coordinate) { BoardCoordinate.new(6, 5) }
+
+          it_behaves_like "a g6 coordinate"
+        end
+      end
+      
+      describe "initialization with a file and a rank" do
+        context "when a1" do
+          subject(:coordinate) { BoardCoordinate.new(:a, 1) }
+
+          it_behaves_like "an a1 coordinate"
+        end
+
+        context "when h8" do
+          subject(:coordinate) { BoardCoordinate.new(:h, 8) }
+
+          it_behaves_like "an h8 coordinate"
+        end
+
+        context "when g6" do
+          subject(:coordinate) { BoardCoordinate.new(:g, 6) }
+
+          it_behaves_like "a g6 coordinate"
+        end
       end
     end
-    
-    describe "#file" do
-      it "returns the file name of the position" do
-        expect(coordinate.file).to eq(:a)
+
+    describe "#adjacent_files" do
+      context "when the file is a" do
+        it "returns b in an array" do
+          expect(coordinate.adjacent_files).to eq([:b])
+        end
+      end
+
+      context "when the file is h" do
+        subject(:coordinate) { BoardCoordinate.new(:h6) }
+
+        it "returns g in an array" do
+          expect(coordinate.adjacent_files).to eq([:g])
+        end
+      end
+
+      context "when the file is in between a and h" do
+        subject(:coordinate) { BoardCoordinate.new(:e7) }
+        it "returns its adjacent files" do
+          expect(coordinate.adjacent_files).to eq([:d, :f])
+        end
       end
     end
 
-    describe "relative_coordinate" do
+    describe "#relative_coordinate" do
       context "when the x and y are in bounds" do
         it "returns the relative coordinate" do
           expected = BoardCoordinate.new(7, 7)
@@ -104,7 +142,7 @@ module RubyChessBoard
       end
     end
 
-    describe "relative_coordinate_set" do
+    describe "#relative_coordinate_set" do
       context "when x and y are in bounds" do
         it "returns as many coordinates as it can" do
           expected = (1..7).map { |n| BoardCoordinate.new(n, n) }

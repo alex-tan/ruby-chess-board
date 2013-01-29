@@ -20,6 +20,15 @@ module RubyChessBoard
       end
     end
     
+    # Returns an array of adjacent file names to the coordinate.
+    # @return [Array<Symbol>]
+    def adjacent_files
+      files = []
+      files << file_names[x - 1] unless file == :a
+      files << file_names[x + 1] unless file == :h 
+      files
+    end
+    
     # Returns the coordinate in this format: '(x, y)'
     # @return [String]
     def to_s
@@ -35,7 +44,7 @@ module RubyChessBoard
     # Returns the file name of the coordinate.
     # @return [Symbol]
     def file
-      file_names[y]
+      file_names[x]
     end
 
     # Is true if the coordinates' x's and y's are equal.
@@ -83,7 +92,7 @@ module RubyChessBoard
     # Returns the coordinate's square name as a symbol.
     # @return [Symbol]
     def square_name
-      "#{file_names[x]}#{rank_names[y]}".to_sym
+      "#{file}#{rank}".to_sym
     end
 
     private
