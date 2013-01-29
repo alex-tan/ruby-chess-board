@@ -1,17 +1,30 @@
 module RubyChessBoard
+  # Identifies PGN Move notation.
+  # @example
+  #   identifier = MoveIdentifier.new
+  #   identifier.identify('Kxe4')
+  #   identifier.piece_type  # Knight
+  #   identifier.move_type   # :capture
+  #   identifier.destination # :e4
   class MoveIdentifier
-    # @!attribute [r] promotion_piece_type
-    #   @return [Piece] the class of piece being promoted to
+    # @return [Symbol] the square name where the piece is moving.
+    attr_reader :destination
 
-    # @!attribute [r] piece_type
-    #   @return [Piece, Array<Piece>] the class or classes of pieces moving
+    # @return [Symbol] the file where the piece is moving from.
+    attr_reader :file
 
-    # @!attribute [r] move_type
-    #   @return [Symbol] the type of move, either :normal, :capture, :queenside_castle, or
-    #     :kingside_castle
+    # @return [Symbol] the type of move, either :normal, :capture, :queenside_castle,
+    #   promotion, or :kingside_castle.
+    attr_reader :move_type
 
-    attr_reader :promotion_piece_type, :piece_type, :move_type,
-      :destination, :file, :rank
+    # @return [Piece] the class of piece being promoted to.
+    attr_reader :promotion_piece_type
+
+    # @return [Piece, Array<Piece>] the class or classes of pieces moving.
+    attr_reader :piece_type
+    
+    # @return [Integer] the rank the piece is moving from.
+    attr_reader :rank
 
     PIECE_MAP = {
       'K' => King,
@@ -21,23 +34,19 @@ module RubyChessBoard
       'N' => Knight
     }
 
-    # @!group Regular expression parts used to identify pieces.
     PIECE_LETTER           = "[#{PIECE_MAP.keys.join('|')}]{0,1}"
     PROMOTION_PIECE_LETTER = "[B|N|R|Q]"
     FILE                   = "[a-h]"
     RANK                   = "[1-8]"
     CAPTURE                = "x{0,1}"
     SQUARE                 = [FILE, RANK].join('')
-    # @!endgroup
 
     # Identifies PGN move notation and returns the instance with all possible
     # information attached.
     # @param [String] move
     # @return [MoveIdentifier]
     def identify(move)
-      qualities = move_qualities(move)
-      set_qualities(qualities)
-
+      set_qualities move_qualities(move)
       self.clone 
     end
 
