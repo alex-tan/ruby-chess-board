@@ -23,7 +23,7 @@ module RubyChessBoard
     # Returns the coordinate in this format: '(x, y)'
     # @return [String]
     def to_s
-      "(#{x},#{y})"
+      square_name.to_s
     end
     
     # Returns the board rank of a coordinate.
