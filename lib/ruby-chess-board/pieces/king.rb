@@ -1,5 +1,6 @@
 module RubyChessBoard
   class King < Piece
+    # @private
     def raw_directional_moves(game)
       board    = game.board
       position = board.coordinates_of(self)
