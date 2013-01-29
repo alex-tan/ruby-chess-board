@@ -2,6 +2,16 @@ module RubyChessBoard
   class Pawn < Piece
     include CoordinateHelpers
 
+    class <<self
+      def starting_ranks
+        { white: 2, black: 7 }
+      end
+
+      def rank_directions
+        { white: 1, black: -1 }
+      end
+    end
+
     # @private
     def raw_directional_moves(board)
       position = board.coordinates_of(self)
@@ -23,17 +33,13 @@ module RubyChessBoard
     # The rank that the pawn starts in in a traditional board setup.
     # @return [Integer]
     def starting_rank
-      if white?     then 2
-      elsif black?  then 7
-      end
+      Pawn.starting_ranks[color]
     end
 
-    # The 'y' direction that the pawn moves in.
+    # The 'y' direction that the pawn moves in. (1 for white, -1 for black)
     # @return [Integer]
     def rank_direction
-      if white?     then 1
-      elsif black?  then -1
-      end
+      Pawn.rank_directions[color]
     end
 
     private
