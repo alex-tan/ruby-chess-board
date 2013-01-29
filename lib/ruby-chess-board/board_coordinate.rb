@@ -73,7 +73,7 @@ module RubyChessBoard
 
     # Given a relative change in x and y, returns as many coordinates as
     # are on that board in that direction.
-    # @return [Array]
+    # @return [CoordinateSet]
     # @option options [Integer] :limit The maximum number of coordinates to return.
     def relative_coordinate_set(x_change, y_change, options = {})
       current_x = x + x_change
@@ -88,7 +88,7 @@ module RubyChessBoard
         current_y += y_change
       end
 
-      set
+      CoordinateSet.new(set)
     end
 
     # Returns the coordinate's square name as a symbol.

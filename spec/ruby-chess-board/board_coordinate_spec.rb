@@ -150,22 +150,22 @@ module RubyChessBoard
 
     describe "#relative_coordinate_set" do
       context "when x and y are in bounds" do
-        it "returns as many coordinates as it can" do
-          expected = (1..7).map { |n| BoardCoordinate.new(n, n) }
-
+        it "returns as many coordinates as it can as a coordinate set" do
+          coords = (1..7).map { |n| BoardCoordinate.new(n, n) }
+          expected = CoordinateSet.new(coords)
           expect(coordinate.relative_coordinate_set(1, 1)).to eq(expected)
         end
       end
 
       context "when x is out of bounds" do
-        it "returns an empty array" do
-          expect(coordinate.relative_coordinate_set(-1, 1)).to eq([])
+        it "returns an empty coordinate set" do
+          expect(coordinate.relative_coordinate_set(-1, 1)).to eq(CoordinateSet.new([]))
         end
       end
 
       context "when y is out of bounds" do
         it "returns an empty array" do
-          expect(coordinate.relative_coordinate_set(1, -1)).to eq([])
+          expect(coordinate.relative_coordinate_set(1, -1)).to eq(CoordinateSet.new([]))
         end
       end
     end
