@@ -1,9 +1,23 @@
 module RubyChessBoard
   class CoordinateSet
+    include Enumerable
+
     attr_reader :coordinates
 
     def initialize(coordinates)
-      @coordinates = coordinates  
+      @coordinates = coordinates 
+    end
+    
+    # Yields each of the coordinates in order.
+    # @yield [BoardCoordinate] coordinate
+    def each
+      coordinates.each { |coordinate| yield coordinate }
+    end
+    
+    # Returns true if there are no coordinates in the set.
+    # @return [Boolean]
+    def empty?
+      coordinates.empty?
     end
     
     # CoordinateSets are equal when they have the same coordinates

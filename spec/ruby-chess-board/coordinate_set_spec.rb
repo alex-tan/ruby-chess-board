@@ -8,6 +8,20 @@ module RubyChessBoard
       expect(set.coordinates).to eq(coordinates)
     end
 
+    describe "#empty?" do
+      context "when there are no coordinates" do
+        it "returns true" do
+          expect(CoordinateSet.new([])).to be_empty
+        end
+      end
+
+      context "when there are coordinates" do
+        it "returns false" do
+          expect(CoordinateSet.new(coordinates(:a1))).to_not be_empty
+        end
+      end
+    end
+
     describe "#equality testing" do
       context "when the coordinates are the same" do
         specify "they are equal" do
