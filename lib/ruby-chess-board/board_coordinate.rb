@@ -11,8 +11,12 @@ module RubyChessBoard
       when 1
         set_x_and_y_from_square(args.first)
       when 2
-        @x = args.first 
-        @y = args.last 
+        if args.first.kind_of?(Integer)
+          @x = args.first 
+          @y = args.last 
+        else
+          set_x_and_y_from_square("#{args.first}#{args.last}")
+        end
       end
     end
     

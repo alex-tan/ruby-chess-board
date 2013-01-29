@@ -44,6 +44,7 @@ module RubyChessBoard
           its(:x) { should == 0 }
           its(:y) { should == 0 }
           its(:square_name) { should == :a1 } 
+        end 
 
         context "when h8" do
           subject(:coordinate) { BoardCoordinate.new(:h8) } 
@@ -67,6 +68,14 @@ module RubyChessBoard
         expect(coordinate.y).to eq(0)
         expect(coordinate.square_name).to eq(:a1)
       end
+
+      it "initializes with a file and a rank" do
+        coord = BoardCoordinate.new(:a, 1)
+        expect(coord.x).to eq(0)
+        expect(coord.y).to eq(0)
+        expect(coord.square_name).to eq(:a1)
+      end
+    end
     end
 
     describe "relative_coordinate" do
