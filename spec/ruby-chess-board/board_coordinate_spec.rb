@@ -37,12 +37,29 @@ module RubyChessBoard
     end
 
     describe "initialize" do
-      it "initializes with a square name" do
-        coord = BoardCoordinate.new(:a1)
+      describe "initialization with a square name" do
+        context "when a1" do
+          subject(:coordinate) { BoardCoordinate.new(:a1) } 
+          
+          its(:x) { should == 0 }
+          its(:y) { should == 0 }
+          its(:square_name) { should == :a1 } 
 
-        expect(coord.x).to eq(0)
-        expect(coord.y).to eq(0)
-        expect(coord.square_name).to eq(:a1)
+        context "when h8" do
+          subject(:coordinate) { BoardCoordinate.new(:h8) } 
+
+          its(:x) { should == 7 }
+          its(:y) { should == 7 }
+          its(:square_name) { should == :h8 }
+        end 
+
+        context "when g6" do
+          subject(:coordinate) { BoardCoordinate.new(:g6) } 
+
+          its(:x) { should == 6 }
+          its(:y) { should == 5 }
+          its(:square_name) { should == :g6 }
+        end
       end
 
       it "initializes with an x and a y" do
