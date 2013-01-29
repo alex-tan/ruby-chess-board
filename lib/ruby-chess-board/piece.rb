@@ -1,5 +1,7 @@
 module RubyChessBoard
   class Piece
+    include CoordinateHelpers
+
     # @return [Symbol] either :white or :black
     attr_reader :color
 
@@ -56,10 +58,6 @@ module RubyChessBoard
 
     private
         
-    def impossible_coordinate?(variable)
-      variable.kind_of?(BoardCoordinate::ImpossibleCoordinate)
-    end
-
     def empty_set?(variable)
       variable.kind_of?(Array) && variable.empty?
     end
