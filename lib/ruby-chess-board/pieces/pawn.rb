@@ -36,13 +36,6 @@ module RubyChessBoard
       moves + en_passant_opportunities(game)
     end
 
-    # Returns true if the variable is a Piece and its color is the opposite of
-    # the pawn's.
-    # @return [Boolean]
-    def can_take?(variable)
-      variable.kind_of?(Piece) && variable.color == opposite_color 
-    end
-    
     # The rank that the pawn starts in in a traditional board setup.
     # @return [Integer]
     def starting_rank
