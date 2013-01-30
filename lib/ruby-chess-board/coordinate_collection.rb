@@ -1,5 +1,7 @@
 module RubyChessBoard
   class CoordinateCollection
+    include CoordinateHelpers
+
     # @option options [Array] :coordinates
     # @option options [Array] :sets
     def initialize(options = {})
@@ -22,6 +24,23 @@ module RubyChessBoard
       collection.kind_of?(CoordinateCollection) &&
         collection.sets == sets &&
         collection.coordinates == coordinates
+    end
+    
+    # Removes sets that are empty and coordinates that are impossible.
+    # @return [void]
+    def compact
+      remove_empty_sets
+      remove_impossible_coordinates
+    end
+
+    private
+
+    def remove_empty_sets
+      @sets.reject!(&:empty?)
+    end
+
+    def remove_impossible_coordinates
+      @coordinates.reject! { |c| impossible_coordinate?(c) }
     end
   end
 end

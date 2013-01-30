@@ -59,5 +59,37 @@ module RubyChessBoard
         end
       end
     end
+
+    describe "#compact" do
+      let(:real_coordinate_set) { build(:coordinate_set) }
+      let(:real_coordinate)     { build(:board_coordinate) }
+
+      subject(:collection) do
+        collection = CoordinateCollection.new
+        collection.sets = [
+          real_coordinate_set,
+          build(:coordinate_set, coordinates: [])
+        ]
+
+        collection.coordinates = [
+          real_coordinate,
+          build(:impossible_coordinate)
+        ]
+
+        collection
+      end
+      
+      it "removes empty sets" do
+        expect { collection.compact }.to change {
+          collection.sets
+        }.to([real_coordinate_set])
+      end
+
+      it "removes impossible coordinates" do
+        expect { collection.compact }.to change {
+          collection.coordinates
+        }.to([real_coordinate])
+      end
+    end
   end
 end
