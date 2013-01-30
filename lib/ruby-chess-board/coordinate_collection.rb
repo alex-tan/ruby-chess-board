@@ -26,19 +26,30 @@ module RubyChessBoard
         collection.coordinates == coordinates
     end
     
-    # Removes sets that are empty and coordinates that are impossible.
-    # @return [void]
+    # Returns a deep clone of itself.
+    # @return [CoordinateCollection]
+    def clone
+      Marshal::load(Marshal.dump(self))
+    end
+    
+    # Returns a new CoordinateCollection that has no empty sets and
+    # no impossible coordinates.
+    # @return [CoordinateCollection]
     def compact
-      remove_empty_sets
-      remove_impossible_coordinates
+      collection = clone
+      collection.remove_empty_sets
+      collection.remove_impossible_coordinates
+      collection
     end
 
-    private
-
+    # Removes empty sets from the collection.
+    # @return [void]
     def remove_empty_sets
       @sets.reject!(&:empty?)
     end
-
+    
+    # Removes impossible coordinates from the collection.
+    # @return [void]
     def remove_impossible_coordinates
       @coordinates.reject! { |c| impossible_coordinate?(c) }
     end

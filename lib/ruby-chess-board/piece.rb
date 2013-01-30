@@ -39,7 +39,6 @@ module RubyChessBoard
     def directional_moves(game)
       moves = raw_directional_moves(game)
       moves.compact
-      moves
     end
   
     # Returns the opposite color of the Piece.

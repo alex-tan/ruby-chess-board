@@ -78,17 +78,18 @@ module RubyChessBoard
 
         collection
       end
-      
-      it "removes empty sets" do
-        expect { collection.compact }.to change {
-          collection.sets
-        }.to([real_coordinate_set])
+
+      let(:compacted) { collection.compact }
+       
+      it "does not affect the original collection" do
+        expect { compacted }.to_not change { collection }
+      end
+      it "returns a collection without empty sets" do
+        expect(compacted.sets).to eq([real_coordinate_set])
       end
 
-      it "removes impossible coordinates" do
-        expect { collection.compact }.to change {
-          collection.coordinates
-        }.to([real_coordinate])
+      it "returns a collection without impossible coordinates" do
+        expect(compacted.coordinates).to eq([real_coordinate])
       end
     end
   end

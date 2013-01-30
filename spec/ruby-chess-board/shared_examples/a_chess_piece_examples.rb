@@ -64,9 +64,9 @@ module RubyChessBoard
 
       it "compacts and returns the raw directional moves" do
         piece.expects(:raw_directional_moves).with(game).returns(moves = stub)
-        moves.expects(:compact)
+        moves.expects(:compact).returns(result = stub)
 
-        expect(piece.directional_moves(game)).to eq(moves)
+        expect(piece.directional_moves(game)).to eq(result)
       end
     end
       
