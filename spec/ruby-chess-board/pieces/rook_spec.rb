@@ -16,14 +16,14 @@ module RubyChessBoard
         board = game.board
         rook = board.d4
 
-        expected_moves = [
-          coordinates(:d5, :d6, :d7, :d8),
-          coordinates(:e4, :f4, :g4, :h4),
-          coordinates(:d3, :d2, :d1),
-          coordinates(:c4, :b4, :a4)
+        expected = build :coordinate_collection, sets: [
+          coordinate_set(:d5, :d6, :d7, :d8),
+          coordinate_set(:e4, :f4, :g4, :h4),
+          coordinate_set(:d3, :d2, :d1),
+          coordinate_set(:c4, :b4, :a4)
         ]
 
-        expect(rook.raw_directional_moves(game)).to eq(expected_moves)
+        expect(rook.raw_directional_moves(game)).to eq(expected)
       end
     end
   end
