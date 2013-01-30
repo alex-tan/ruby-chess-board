@@ -14,8 +14,9 @@ module RubyChessBoard
       
       it "should include all possible L moves" do
         knight = game.board.d4
-        expected_moves = coordinates(:e6, :f5, :f3, :e2, :c2, :b3, :b5, :c6)
-        expect(knight.raw_directional_moves(game)).to eq(expected_moves)
+        expected = build :coordinate_collection,
+          coordinates: coordinate_array(:e6, :f5, :f3, :e2, :c2, :b3, :b5, :c6)
+        expect(knight.raw_directional_moves(game)).to eq(expected)
       end
     end
   end

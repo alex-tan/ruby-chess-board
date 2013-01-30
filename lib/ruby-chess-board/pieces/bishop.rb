@@ -5,7 +5,8 @@ module RubyChessBoard
       board    = game.board
       position = board.coordinates_of(self)
       
-      [ position.relative_coordinate_set(1, 1),
+      CoordinateCollection.new sets: [
+        position.relative_coordinate_set(1, 1),
         position.relative_coordinate_set(1, -1),
         position.relative_coordinate_set(-1, -1),
         position.relative_coordinate_set(-1, 1) ]
