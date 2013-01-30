@@ -19,8 +19,9 @@ module RubyChessBoard
       it "includes all immediate spaces around it" do
         king # preload king
         game.last
-        expected_moves = coordinates(:d4, :e4, :e3, :e2, :d2, :c2, :c3, :c4)
-        expect(king.raw_directional_moves(game)).to eq(expected_moves)
+        expected = build :coordinate_collection,
+                         coordinates: coordinate_array(:d4, :e4, :e3, :e2, :d2, :c2, :c3, :c4)
+        expect(king.raw_directional_moves(game)).to eq(expected)
       end
     end
   end
