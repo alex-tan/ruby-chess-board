@@ -3,7 +3,7 @@ require 'spec_helper'
 module RubyChessBoard
   describe CoordinateSet do
     it "stores coordinates" do
-      coordinates = coordinates(:e1, :a4, :b5)
+      coordinates = coordinate_array(:e1, :a4, :b5)
       set = CoordinateSet.new(coordinates)
       expect(set.coordinates).to eq(coordinates)
     end
@@ -17,7 +17,7 @@ module RubyChessBoard
 
       context "when there are coordinates" do
         it "returns false" do
-          expect(CoordinateSet.new(coordinates(:a1))).to_not be_empty
+          expect(CoordinateSet.new(coordinate_array(:a1))).to_not be_empty
         end
       end
     end
@@ -25,8 +25,8 @@ module RubyChessBoard
     describe "#equality testing" do
       context "when the coordinates are the same" do
         specify "they are equal" do
-          set_1 = CoordinateSet.new(coordinates(:b4, :a4))
-          set_2 = CoordinateSet.new(coordinates(:b4, :a4))
+          set_1 = CoordinateSet.new(coordinate_array(:b4, :a4))
+          set_2 = CoordinateSet.new(coordinate_array(:b4, :a4))
 
           expect(set_1).to eq(set_2)
         end
@@ -34,8 +34,8 @@ module RubyChessBoard
 
       context "when the coordinates are not the same or not ordered the same" do
         specify "they are not equal" do
-          set_1 = CoordinateSet.new(coordinates(:g4, :c4))
-          set_2 = CoordinateSet.new(coordinates(:c4, :g4))
+          set_1 = CoordinateSet.new(coordinate_array(:g4, :c4))
+          set_2 = CoordinateSet.new(coordinate_array(:c4, :g4))
 
           expect(set_1).to_not eq(set_2)
         end
@@ -49,7 +49,7 @@ module RubyChessBoard
     end
 
     describe "#without_blocks" do
-      let(:coords) { coordinates(:c4, :b4, :a4) }
+      let(:coords) { coordinate_array(:c4, :b4, :a4) }
       let(:game) { Game.new([board]) }
       let(:queen) { board.d4 }
       let(:set) { CoordinateSet.new(coords) }
@@ -102,7 +102,7 @@ module RubyChessBoard
         end
 
         it "blocks all coordinates after the block" do
-          expected = CoordinateSet.new(coordinates(:c4, :b4))
+          expected = CoordinateSet.new(coordinate_array(:c4, :b4))
           expect(set.without_blocks(piece: queen, game: game)).to eq(expected)
         end
       end

@@ -29,7 +29,7 @@ module RubyChessBoard
     end
 
     it "stores individual coordinates" do
-      coords = coordinates(:a1, :b4)
+      coords = coordinate_array(:a1, :b4)
       collection.coordinates = coords
       expect(collection.coordinates).to eq(coords)
     end
