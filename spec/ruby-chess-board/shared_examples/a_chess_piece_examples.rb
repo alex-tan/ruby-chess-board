@@ -60,23 +60,13 @@ module RubyChessBoard
     end
 
     describe "#directional_moves" do
-      let(:raw_moves) do
-        [
-          coordinate(:a1),
-          build(:impossible_coordinate),
-          coordinate(:g5),
-          [],
-          coordinate(:f6)
-        ]
-      end
+      let(:game) { build(:game) }
 
-      it "returns raw directional moves with empty arrays and impossible coordinates filtered out" do
-        game = build(:game)
-        piece.expects(:raw_directional_moves).with(game).returns(raw_moves)
+      it "compacts and returns the raw directional moves" do
+        piece.expects(:raw_directional_moves).with(game).returns(moves = stub)
+        moves.expects(:compact)
 
-        expected_moves = coordinates(:a1, :g5, :f6)
-
-        expect(piece.directional_moves(game)).to eq(expected_moves)
+        expect(piece.directional_moves(game)).to eq(moves)
       end
     end
       

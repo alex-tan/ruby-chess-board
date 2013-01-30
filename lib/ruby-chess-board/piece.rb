@@ -2,12 +2,11 @@ module RubyChessBoard
   class Piece
     class <<self
       # Colors a piece can be.
+      # @return [Array<Symbol>]
       def colors
         [:white, :black]
       end
     end
-
-    include CoordinateHelpers
 
     # @return [Symbol] either :white or :black
     attr_reader :color
@@ -32,15 +31,15 @@ module RubyChessBoard
       starting_position == piece.starting_position
     end
     
-    # Returns an array of coordinates and/or coordinate sets in
-    # which the piece can move assuming there are no pieces in the way
-    # and the move would not put the player in check.
+    # Returns a coordinate collection made up of individual coordinates and/or coordinate sets
+    # in which the piece can hypothetically move. This still may include moves which are
+    # blocked or occupied by pieces of the same color.
     # @param [Game] game
-    # @return [Array]
+    # @return [CoordinateCollection]
     def directional_moves(game)
-      raw_directional_moves(game).reject do |move_or_set|
-        empty_set?(move_or_set) || impossible_coordinate?(move_or_set)
-      end
+      moves = raw_directional_moves(game)
+      moves.compact
+      moves
     end
   
     # Returns the opposite color of the Piece.
@@ -73,12 +72,6 @@ module RubyChessBoard
     # @return [Boolean]
     def ally?(variable)
       variable.kind_of?(Piece) && variable.color == color
-    end
-
-    private
-        
-    def empty_set?(variable)
-      variable.kind_of?(Array) && variable.empty?
     end
   end
 end
