@@ -17,23 +17,27 @@ module RubyChessBoard
       board    = game.board
       position = board.coordinates_of(self)
       
+      collection = CoordinateCollection.new
+
       # If the pawn is in the starting rank, then they can move forward either one
       # square or two.
       if position.rank == starting_rank 
-        moves = [ position.relative_coordinate_set(0, rank_direction, limit: 2) ]
+        collection.sets << position.relative_coordinate_set(0, rank_direction, limit: 2)
       # Otherwise they only move one square at a time.
       else
-        moves = [ position.relative_coordinate(0, rank_direction) ]
+        collection.coordinates << position.relative_coordinate(0, rank_direction)
       end
       
       # Check to see if there are pieces to take one square forward in each
       # adjoining file.
       takeable_coordinates(position).each do |coordinate|
         at_square = board.at_square(coordinate.square_name)
-        moves << coordinate if opponent?(at_square) 
+        collection.coordinates << coordinate if opponent?(at_square) 
       end
 
-      moves + en_passant_opportunities(game)
+      collection.coordinates += en_passant_opportunities(game)
+
+      collection
     end
 
     # The rank that the pawn starts in in a traditional board setup.

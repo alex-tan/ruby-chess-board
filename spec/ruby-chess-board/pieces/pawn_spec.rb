@@ -15,8 +15,8 @@ module RubyChessBoard
 
         context "when it's in the second rank" do
           it "can move forward one or two" do
-            expected_moves = [coordinates(:d3, :d4)]
-            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
+            expected = build(:coordinate_collection, sets: [coordinate_set(:d3, :d4)])
+            expect(pawn.raw_directional_moves(game)).to eq(expected)
           end
         end 
 
@@ -24,8 +24,8 @@ module RubyChessBoard
           it "can move forward one" do
             pawn # have to load the piece before it's moved
             board.move_piece(:d2, :d3)
-            expected_moves = coordinates(:d4) 
-            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
+            expected = build(:coordinate_collection, coordinates: coordinate_array(:d4))
+            expect(pawn.raw_directional_moves(game)).to eq(expected)
           end
         end
 
@@ -34,11 +34,11 @@ module RubyChessBoard
             board.move_piece(:f8, :e3)
             board.move_piece(:d8, :c3)
 
-            expected_moves = [
-              coordinates(:d3, :d4),
-            ] + coordinates(:e3, :c3)
+            expected = build :coordinate_collection,
+              sets: [coordinate_set(:d3, :d4)],
+              coordinates: coordinate_array(:e3, :c3)
 
-            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
+            expect(pawn.raw_directional_moves(game)).to eq(expected)
           end
         end
 
@@ -47,8 +47,8 @@ module RubyChessBoard
             board.move_piece(:a1, :e3)
             board.move_piece(:h1, :c3)
 
-            expected_moves = [coordinates(:d3, :d4)]
-            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
+            expected = build :coordinate_collection, sets: [coordinate_set(:d3, :d4)]
+            expect(pawn.raw_directional_moves(game)).to eq(expected)
           end 
         end
 
@@ -68,8 +68,9 @@ module RubyChessBoard
           it "can take en passant in the rank the white piece just skipped" do
             pawn # load pawn
             game.last
-            expected_moves = coordinates(:d6, :e6)
-            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
+
+            expected = build(:coordinate_collection, coordinates: coordinate_array(:d6, :e6))
+            expect(pawn.raw_directional_moves(game)).to eq(expected)
           end
         end
       end
@@ -79,9 +80,8 @@ module RubyChessBoard
 
         context "when it's in the seventh rank" do
           it "can move down one or two ranks" do
-            expected_moves = [coordinates(:e6, :e5)]
-
-            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
+            expected = build(:coordinate_collection, sets: [coordinate_set(:e6, :e5)])
+            expect(pawn.raw_directional_moves(game)).to eq(expected)
           end
         end
 
@@ -89,8 +89,8 @@ module RubyChessBoard
           it "can move down one rank at a time" do
             pawn # load piece before it's moved
             board.move_piece(:e7, :e6)
-            expected_moves = coordinates(:e5) 
-            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
+            expected = build(:coordinate_collection, coordinates: coordinate_array(:e5))
+            expect(pawn.raw_directional_moves(game)).to eq(expected)
           end
         end
 
@@ -99,11 +99,10 @@ module RubyChessBoard
             board.move_piece(:a1, :d6)
             board.move_piece(:g1, :f6)
 
-            expected_moves = [
-              coordinates(:e6, :e5),
-            ] + coordinates(:f6, :d6)
-
-            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
+            expected = build :coordinate_collection,
+                             sets: [coordinate_set(:e6, :e5)],
+                             coordinates: coordinate_array(:f6, :d6)
+            expect(pawn.raw_directional_moves(game)).to eq(expected)
           end
         end
 
@@ -112,9 +111,8 @@ module RubyChessBoard
             board.move_piece(:f8, :d6)
             board.move_piece(:h8, :f6)
 
-            expected_moves = [coordinates(:e6, :e5)]
-
-            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
+            expected = build :coordinate_collection, sets: [coordinate_set(:e6, :e5)]
+            expect(pawn.raw_directional_moves(game)).to eq(expected)
           end 
         end
 
@@ -134,8 +132,8 @@ module RubyChessBoard
           it "can take en passant in the rank the white piece just skipped" do
             pawn # load pawn
             game.last
-            expected_moves = coordinates(:e3, :d3)
-            expect(pawn.raw_directional_moves(game)).to eq(expected_moves)
+            expected = build :coordinate_collection, coordinates: coordinate_array(:e3, :d3)
+            expect(pawn.raw_directional_moves(game)).to eq(expected)
           end
         end
       end
