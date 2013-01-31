@@ -19,10 +19,6 @@ module RubyChessBoard
       build(factory_name, options)
     end
 
-    def alternate_color(piece)
-      (Piece.colors - [piece.color]).first
-    end
-
     subject(:piece) { piece_factory }
 
     describe "testing for equality" do
@@ -87,7 +83,7 @@ module RubyChessBoard
 
       context "when the variable is a piece of a differnt color" do
         it "is true" do
-          opponent = piece_factory(color: alternate_color(piece))
+          opponent = piece_factory(color: piece.opposite_color)
           expect(piece.opponent?(opponent)).to be_true
         end
       end
@@ -117,7 +113,7 @@ module RubyChessBoard
       
       context "when the variable is the same piece of a different color" do
         it "should be false" do
-          opponent = piece_factory(color: alternate_color(piece))
+          opponent = piece_factory(color: piece.opposite_color)
           expect(piece.ally?(opponent)).to be_false
         end
       end
