@@ -5,11 +5,10 @@ module RubyChessBoard
     it_should_behave_like 'a chess piece' 
 
     describe "raw directional moves" do
-      let(:game) { Game.new(boards) }
+      let(:game) { build(:game, boards: boards) }
       let(:boards) do
-        board = Board.new
+        board = build(:board) 
         board.move_piece(:c1, :d4)
-
         [board]
       end
 
