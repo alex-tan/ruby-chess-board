@@ -18,19 +18,19 @@ module RubyChessBoard
 
     describe "equality testing" do
       context "when x's and y's are the same" do
-        let(:coordinate_2) { Coordinate.new(0, 0) }
+        let(:coordinate_2) { build(:coordinate, x: 0, y: 0) }
 
         it { should eq(coordinate_2) }
       end
 
       context "when x's are not the same" do
-        let(:coordinate_2) { Coordinate.new(1, 0) }
+        let(:coordinate_2) { build(:coordinate, x: 1, y: 0) }
 
         it { should_not eq(coordinate_2) }
       end
 
       context "when y's are not the same" do
-        let(:coordinate_2) { Coordinate.new(0, 1) }
+        let(:coordinate_2) { build(:coordinate, x: 0, y: 1) }
 
         it { should_not eq(coordinate_2) }
       end
@@ -65,19 +65,19 @@ module RubyChessBoard
 
       describe "initialization with an x and y" do
         context "when (0, 0)" do
-          subject(:coordinate) { Coordinate.new(0, 0) }
+          subject(:coordinate) { build(:coordinate, x: 0, y: 0) }
 
           it_behaves_like 'an a1 coordinate'
         end
 
         context "when (7, 7)" do
-          subject(:coordinate) { Coordinate.new(7, 7) }
+          subject(:coordinate) { build(:coordinate, x: 7, y: 7) }
 
           it_behaves_like 'an h8 coordinate'
         end
 
         context "when (6, 5)" do
-          subject(:coordinate) { Coordinate.new(6, 5) }
+          subject(:coordinate) { build(:coordinate, x: 6, y: 5) }
 
           it_behaves_like "a g6 coordinate"
         end
@@ -85,19 +85,19 @@ module RubyChessBoard
       
       describe "initialization with a file and a rank" do
         context "when a, 1" do
-          subject(:coordinate) { Coordinate.new(:a, 1) }
+          subject(:coordinate) { build(:coordinate, file: :a, rank: 1) }
 
           it_behaves_like "an a1 coordinate"
         end
 
         context "when h, 8" do
-          subject(:coordinate) { Coordinate.new(:h, 8) }
+          subject(:coordinate) { build(:coordinate, file: :h, rank: 8) }
 
           it_behaves_like "an h8 coordinate"
         end
 
         context "when g, 6" do
-          subject(:coordinate) { Coordinate.new(:g, 6) }
+          subject(:coordinate) { build(:coordinate, file: :g, rank: 6) }
 
           it_behaves_like "a g6 coordinate"
         end
@@ -112,7 +112,7 @@ module RubyChessBoard
       end
 
       context "when the file is h" do
-        subject(:coordinate) { Coordinate.new(:h6) }
+        subject(:coordinate) { build(:coordinate, square_name: :h6) }
 
         it "returns g in an array" do
           expect(coordinate.adjacent_files).to eq([:g])
@@ -153,7 +153,7 @@ module RubyChessBoard
       context "when x and y are in bounds" do
         it "returns as many coordinates as it can as a coordinate set" do
           expected = build :coordinate_set,
-            coordinates: (1..7).map { |n| Coordinate.new(n, n) }
+            coordinates: (1..7).map { |n| build(:coordinate, x: n, y: n) }
 
           expect(coordinate.relative_coordinate_set(1, 1)).to eq(expected)
         end

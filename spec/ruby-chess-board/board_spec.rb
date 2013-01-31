@@ -6,7 +6,7 @@ module RubyChessBoard
 
     describe "initialization" do
       context "when a board is provided" do
-        let(:new_board) { Board.new(board) }
+        let(:new_board) { build(:board, origin_board: board) }
 
         it "mirrors the board" do
           board.move_piece(:a2, :a4)
@@ -68,8 +68,7 @@ module RubyChessBoard
         it "returns the board coordinate of the piece provided" do
           rook = board.a1
 
-          expected = Coordinate.new(:a1)
-
+          expected = build(:coordinate, square_name: :a1)
           expect(board.coordinates_of(rook)).to eq(expected)
         end
       end

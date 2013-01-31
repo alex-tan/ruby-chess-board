@@ -2,9 +2,8 @@ require 'spec_helper'
 
 module RubyChessBoard
   describe Game do
-    let(:boards) { Array.new(2) { Board.new } } 
-
-    subject(:game) { Game.new(boards) }
+    let(:boards)   { Array.new(2) { build(:board) } } 
+    subject(:game) { build(:game, boards: boards) }
 
     describe "initialize" do
       it "should be at move 0" do
@@ -99,7 +98,7 @@ module RubyChessBoard
     end
 
     describe "#last" do
-      let(:boards) { Array.new(4) { Board.new } }
+      let(:boards) { Array.new(4) { build(:board) } }
 
       it "jumps to the last move" do
         expect { game.last }.to change { game.move }.to(3)
