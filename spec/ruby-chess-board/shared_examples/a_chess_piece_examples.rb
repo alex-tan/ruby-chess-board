@@ -1,11 +1,11 @@
 module RubyChessBoard
   shared_examples_for 'a chess piece' do
-    def class_to_factory(klass)
+    def class_to_factory_name(klass)
       klass.name.split("::").last.downcase
     end
 
     def piece_factory(options = {})
-      factory_name = class_to_factory(described_class)
+      factory_name = class_to_factory_name(described_class)
       build(factory_name, options)
     end
 
@@ -15,7 +15,7 @@ module RubyChessBoard
     end
 
     def alternate_factory(options = {})
-      factory_name = class_to_factory(alternate_class)
+      factory_name = class_to_factory_name(alternate_class)
       build(factory_name, options)
     end
 
