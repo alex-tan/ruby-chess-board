@@ -66,15 +66,6 @@ module RubyChessBoard
         end
       end
 
-      context "when there is a block from the beginning" do
-        before { board.move_piece(:c2, :c4) }
-
-        it "returns an empty coordinate set" do
-          expected = build(:coordinate_set, :empty)
-          expect(set.without_blocks(piece: queen, game: game)).to eq(expected)
-        end
-      end
-
       context "when there is a block in between by a piece of the same color" do
         before { board.move_piece(:b2, :b4) }
 
