@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :board_coordinate, class: RubyChessBoard::BoardCoordinate do
+  factory :board_coordinate, class: RubyChessBoard::Coordinate do
     ignore do
       square_name :a1
       x nil

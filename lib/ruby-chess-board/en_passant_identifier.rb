@@ -13,7 +13,7 @@ module RubyChessBoard
     end
     
     # Returns an array of board coordinates that can be taken en passant.
-    # @return [Array<BoardCoordinate>]
+    # @return [Array<Coordinate>]
     def opportunities
       opportunities = []
 
@@ -26,12 +26,12 @@ module RubyChessBoard
 
     # The coordinate the pawn can take at if an en passant is possible.
     # @options options [Symbol] :file
-    # @return [BoardCoordinate]
+    # @return [Coordinate]
     def capturable_position(options)
       file = options[:file]
       rank = current_position.rank + capturing_pawn.rank_direction
 
-      BoardCoordinate.new(file, rank)
+      Coordinate.new(file, rank)
     end
     
     # Returns true if the capturing pawn can en passant in the file provided.
@@ -99,7 +99,7 @@ module RubyChessBoard
     end
 
     # The current position of the capturing pawn.
-    # @return [BoardCoordinate]
+    # @return [Coordinate]
     def current_position
       board = game.board
       board.coordinates_of(capturing_pawn)

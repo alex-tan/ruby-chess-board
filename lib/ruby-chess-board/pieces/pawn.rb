@@ -62,7 +62,7 @@ module RubyChessBoard
     end
     
     # Returns an array of 1-2 squares that may contain pieces the pawn can take.  
-    # @return [Array<BoardCoordinate>]
+    # @return [Array<Coordinate>]
     def takeable_coordinates(position)
       [
         position.relative_coordinate(1, rank_direction),

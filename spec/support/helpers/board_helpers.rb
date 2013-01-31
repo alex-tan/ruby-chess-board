@@ -12,6 +12,6 @@ module BoardHelpers
   
   # Return a single coordinate.
   def coordinate(coordinate)
-    RubyChessBoard::BoardCoordinate.new(coordinate)
+    RubyChessBoard::Coordinate.new(coordinate)
   end
 end

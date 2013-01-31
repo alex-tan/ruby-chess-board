@@ -68,7 +68,7 @@ module RubyChessBoard
         it "returns the board coordinate of the piece provided" do
           rook = board.a1
 
-          expected = BoardCoordinate.new(:a1)
+          expected = Coordinate.new(:a1)
 
           expect(board.coordinates_of(rook)).to eq(expected)
         end

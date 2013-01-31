@@ -1,5 +1,5 @@
 module RubyChessBoard
-  class BoardCoordinate
+  class Coordinate
     include BoardReferences
 
     ImpossibleCoordinate = Class.new
@@ -50,24 +50,24 @@ module RubyChessBoard
     end
 
     # Is true if the coordinates' x's and y's are equal.
-    # @param [BoardCoordinate] coordinate
+    # @param [Coordinate] coordinate
     # @return [Boolean]
     def ==(coordinate)
-      coordinate.kind_of?(BoardCoordinate) &&
+      coordinate.kind_of?(Coordinate) &&
         x == coordinate.x &&
         y == coordinate.y
     end
 
-    # Given a relative change in x and y, returns a BoardCoordinate
+    # Given a relative change in x and y, returns a Coordinate
     # if the new coordinate is in bounds, otherwise returns
     # an instance of ImpossibleCoordinate.
-    # @return [BoardCoordinate, ImpossibleCoordinate]
+    # @return [Coordinate, ImpossibleCoordinate]
     def relative_coordinate(x_change, y_change)
       new_x = x + x_change
       new_y = y + y_change
 
       if in_bounds?(new_x, new_y)
-        BoardCoordinate.new(new_x, new_y)
+        Coordinate.new(new_x, new_y)
       else
         ImpossibleCoordinate.new
       end
@@ -84,7 +84,7 @@ module RubyChessBoard
       set = []
 
       until ! in_bounds?(current_x, current_y) || (options[:limit] && set.size >= options[:limit])
-        set << BoardCoordinate.new(current_x, current_y)
+        set << Coordinate.new(current_x, current_y)
 
         current_x += x_change
         current_y += y_change

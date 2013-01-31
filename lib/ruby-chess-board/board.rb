@@ -27,10 +27,10 @@ module RubyChessBoard
 
     attr_reader :files
     
-    # Returns the BoardCoordinate of the piece provided if it
+    # Returns the Coordinate of the piece provided if it
     # is on the board; otherwise returns nil.
     # @param [Piece] piece
-    # @return [BoardCoordinate, nil]
+    # @return [Coordinate, nil]
     def coordinates_of(piece)
       file = files.find { |f| f.has_piece?(piece) }
       
@@ -39,7 +39,7 @@ module RubyChessBoard
       x = files.index(file)
       y = file.ranks.index(piece)
 
-      BoardCoordinate.new(x, y)
+      Coordinate.new(x, y)
     end
     
     # Moves whatever is on one square to another.

@@ -43,7 +43,7 @@ module RubyChessBoard
 
       context "when compared to another class" do
         specify "it is not equal" do
-          expect(BoardCoordinate.new(:a1)).to_not eq(CoordinateSet.new([:a1]))
+          expect(Coordinate.new(:a1)).to_not eq(CoordinateSet.new([:a1]))
         end
       end
     end

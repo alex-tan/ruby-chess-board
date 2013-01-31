@@ -11,7 +11,7 @@ module RubyChessBoard
     # Returns true if the variable is an impossible coordinate.
     # @return [Boolean]
     def impossible_coordinate?(variable)
-      variable.kind_of?(BoardCoordinate::ImpossibleCoordinate)
+      variable.kind_of?(Coordinate::ImpossibleCoordinate)
     end
   end
 end

@@ -9,7 +9,7 @@ module RubyChessBoard
     end
     
     # Yields each of the coordinates in order.
-    # @yield [BoardCoordinate] coordinate
+    # @yield [Coordinate] coordinate
     def each
       coordinates.each { |coordinate| yield coordinate }
     end
