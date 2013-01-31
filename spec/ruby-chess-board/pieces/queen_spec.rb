@@ -4,13 +4,12 @@ module RubyChessBoard
     it_should_behave_like 'a chess piece' 
     
     describe "raw directional moves" do
-      let(:game) { Game.new(boards) }
+      let(:game) { build(:game, boards: boards) }
 
       let(:boards) do
-        board_1 = Board.new
-        board_2 = Board.new(board_1)
-        board_2.move_piece(:d1, :d4)
-        [board_1, board_2]
+        board = build(:board)
+        board.move_piece(:d1, :d4)
+        [board]
       end
 
       it "includes straight lines in all directions" do

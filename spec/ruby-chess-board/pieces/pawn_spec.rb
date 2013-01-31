@@ -2,9 +2,8 @@ require 'spec_helper'
 
 module RubyChessBoard
   describe Pawn do
-    let(:game)  { build(:game) }
-    let(:board) { game.board }
-
+    let(:game)     { build(:game) }
+    let(:board)    { game.board }
     subject(:pawn) { build(:pawn) }
 
     it_should_behave_like 'a chess piece'
@@ -55,21 +54,25 @@ module RubyChessBoard
         context %(when a black piece moved forward two places the last move and
                   is in the same rank and an adjoining file) do
           let(:boards) do
-            board_1 = Board.new
-            board_2 = Board.new(board_1)
+            board_1 = build(:board)
+
+            board_2 = build(:board, origin_board: board_1)
             board_2.move_piece(:d2, :d5)
-            board_3 = Board.new(board_2)
+
+            board_3 = build(:board, origin_board: board_2)
             board_3.move_piece(:e7, :e5)
+
             [board_1, board_2, board_3]
           end
 
-          let(:game) { Game.new(boards) }
+          let(:game) { build(:game, boards: boards) }
 
           it "can take en passant in the rank the white piece just skipped" do
             pawn # load pawn
             game.last
 
-            expected = build(:coordinate_collection, coordinates: coordinate_array(:d6, :e6))
+            expected = build :coordinate_collection,
+              coordinates: coordinate_array(:d6, :e6)
             expect(pawn.raw_directional_moves(game)).to eq(expected)
           end
         end
@@ -119,15 +122,15 @@ module RubyChessBoard
         context %(when a white piece moved forward two places the last move and
                   is in the same rank and an adjoining file) do
           let(:boards) do
-            board_1 = Board.new
-            board_2 = Board.new(board_1)
+            board_1 = build(:board)
+            board_2 = build(:board, origin_board: board_1)
             board_2.move_piece(:e7, :e4)
-            board_3 = Board.new(board_2)
+            board_3 = build(:board, origin_board: board_2)
             board_3.move_piece(:d2, :d4)
             [board_1, board_2, board_3]
           end
 
-          let(:game) { Game.new(boards) }
+          let(:game) { build(:game, boards: boards) }
 
           it "can take en passant in the rank the white piece just skipped" do
             pawn # load pawn
