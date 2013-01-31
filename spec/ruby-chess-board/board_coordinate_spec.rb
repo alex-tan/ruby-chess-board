@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module RubyChessBoard
   describe Coordinate do
-    subject(:coordinate) { build(:board_coordinate, square_name: :a1)}
+    subject(:coordinate) { build(:coordinate, square_name: :a1)}
 
     describe "#rank" do
       it "returns the y value + 1" do
@@ -45,19 +45,19 @@ module RubyChessBoard
     describe "initialize" do
       describe "initialization with a square name" do
         context "when a1" do
-          subject(:coordinate) { build(:board_coordinate, square_name: :a1) } 
+          subject(:coordinate) { build(:coordinate, square_name: :a1) } 
 
           it_behaves_like 'an a1 coordinate'
         end 
 
         context "when h8" do
-          subject(:coordinate) { build(:board_coordinate, square_name: :h8) } 
+          subject(:coordinate) { build(:coordinate, square_name: :h8) } 
 
           it_behaves_like 'an h8 coordinate'
         end 
 
         context "when g6" do
-          subject(:coordinate) { build(:board_coordinate, square_name: :g6) } 
+          subject(:coordinate) { build(:coordinate, square_name: :g6) } 
 
           it_behaves_like "a g6 coordinate"
         end
@@ -120,7 +120,7 @@ module RubyChessBoard
       end
 
       context "when the file is in between a and h" do
-        subject(:coordinate) { build(:board_coordinate, square_name: :e7) }
+        subject(:coordinate) { build(:coordinate, square_name: :e7) }
 
         it "returns its adjacent files" do
           expect(coordinate.adjacent_files).to eq([:d, :f])
