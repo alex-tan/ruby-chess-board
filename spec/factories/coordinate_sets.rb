@@ -5,5 +5,9 @@ FactoryGirl.define do
     end
 
     initialize_with { new(coordinates) }
+
+    trait :empty do
+      coordinates []
+    end
   end
 end

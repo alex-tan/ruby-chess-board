@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module RubyChessBoard
   describe BoardCoordinate do
-    subject(:coordinate) { BoardCoordinate.new(0, 0) }
+    subject(:coordinate) { build(:board_coordinate, square_name: :a1)}
 
     describe "#rank" do
       it "returns the y value + 1" do
@@ -36,7 +36,7 @@ module RubyChessBoard
       end
 
       context "when they are not of the same class" do
-        let(:coordinate_2) { BoardCoordinate::ImpossibleCoordinate.new }
+        let(:coordinate_2) { build(:impossible_coordinate) }
 
         it { should_not eq(coordinate_2) }
       end
@@ -45,38 +45,38 @@ module RubyChessBoard
     describe "initialize" do
       describe "initialization with a square name" do
         context "when a1" do
-          subject(:coordinate) { BoardCoordinate.new(:a1) } 
+          subject(:coordinate) { build(:board_coordinate, square_name: :a1) } 
 
           it_behaves_like 'an a1 coordinate'
         end 
 
         context "when h8" do
-          subject(:coordinate) { BoardCoordinate.new(:h8) } 
+          subject(:coordinate) { build(:board_coordinate, square_name: :h8) } 
 
           it_behaves_like 'an h8 coordinate'
         end 
 
         context "when g6" do
-          subject(:coordinate) { BoardCoordinate.new(:g6) } 
+          subject(:coordinate) { build(:board_coordinate, square_name: :g6) } 
 
           it_behaves_like "a g6 coordinate"
         end
       end
 
       describe "initialization with an x and y" do
-        context "when a1" do
+        context "when (0, 0)" do
           subject(:coordinate) { BoardCoordinate.new(0, 0) }
 
           it_behaves_like 'an a1 coordinate'
         end
 
-        context "when h8" do
+        context "when (7, 7)" do
           subject(:coordinate) { BoardCoordinate.new(7, 7) }
 
           it_behaves_like 'an h8 coordinate'
         end
 
-        context "when g6" do
+        context "when (6, 5)" do
           subject(:coordinate) { BoardCoordinate.new(6, 5) }
 
           it_behaves_like "a g6 coordinate"
@@ -84,19 +84,19 @@ module RubyChessBoard
       end
       
       describe "initialization with a file and a rank" do
-        context "when a1" do
+        context "when a, 1" do
           subject(:coordinate) { BoardCoordinate.new(:a, 1) }
 
           it_behaves_like "an a1 coordinate"
         end
 
-        context "when h8" do
+        context "when h, 8" do
           subject(:coordinate) { BoardCoordinate.new(:h, 8) }
 
           it_behaves_like "an h8 coordinate"
         end
 
-        context "when g6" do
+        context "when g, 6" do
           subject(:coordinate) { BoardCoordinate.new(:g, 6) }
 
           it_behaves_like "a g6 coordinate"
@@ -120,7 +120,8 @@ module RubyChessBoard
       end
 
       context "when the file is in between a and h" do
-        subject(:coordinate) { BoardCoordinate.new(:e7) }
+        subject(:coordinate) { build(:board_coordinate, square_name: :e7) }
+
         it "returns its adjacent files" do
           expect(coordinate.adjacent_files).to eq([:d, :f])
         end
@@ -137,13 +138,13 @@ module RubyChessBoard
 
       context "when the x is out of bounds" do
         it "returns an ImpossibleCoordinate" do
-          expect(coordinate.relative_coordinate(8, 7)).to be_kind_of(BoardCoordinate::ImpossibleCoordinate)
+          expect(coordinate.relative_coordinate(8, 7)).to be_impossible_coordinate
         end
       end
 
       context "when the y is out of bounds" do
         it "returns an ImpossibleCoordinate" do
-          expect(coordinate.relative_coordinate(7, 8)).to be_kind_of(BoardCoordinate::ImpossibleCoordinate)
+          expect(coordinate.relative_coordinate(7, 8)).to be_impossible_coordinate
         end
       end
     end
@@ -151,21 +152,24 @@ module RubyChessBoard
     describe "#relative_coordinate_set" do
       context "when x and y are in bounds" do
         it "returns as many coordinates as it can as a coordinate set" do
-          coords = (1..7).map { |n| BoardCoordinate.new(n, n) }
-          expected = CoordinateSet.new(coords)
+          expected = build :coordinate_set,
+            coordinates: (1..7).map { |n| BoardCoordinate.new(n, n) }
+
           expect(coordinate.relative_coordinate_set(1, 1)).to eq(expected)
         end
       end
 
       context "when x is out of bounds" do
         it "returns an empty coordinate set" do
-          expect(coordinate.relative_coordinate_set(-1, 1)).to eq(CoordinateSet.new([]))
+          expected = build(:coordinate_set, :empty)
+          expect(coordinate.relative_coordinate_set(-1, 1)).to eq(expected)
         end
       end
 
       context "when y is out of bounds" do
         it "returns an empty array" do
-          expect(coordinate.relative_coordinate_set(1, -1)).to eq(CoordinateSet.new([]))
+          expected = build(:coordinate_set, :empty)
+          expect(coordinate.relative_coordinate_set(1, -1)).to eq(expected)
         end
       end
     end

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module RubyChessBoard
   describe BoardFile do
-    subject(:file) { BoardFile.new }
+    subject(:file) { build(:board_file) }
 
     it "is made up of 8 ranks" do
       expect(file.ranks.size).to eq(8)
@@ -25,7 +25,7 @@ module RubyChessBoard
     end
 
     describe "#has_piece?" do
-      let(:piece) { Pawn.new(color: :white, starting_position: :a1) }
+      let(:piece) { build(:pawn) }
 
       context "when one of its ranks contains a piece" do
         it 'is true' do
@@ -54,7 +54,7 @@ module RubyChessBoard
 
       context "when there is nothing there" do
         it "returns an instance of EmptySquare" do
-          expect(file.at_rank(4)).to be_kind_of(BoardFile::EmptySquare)
+          expect(file.at_rank(4)).to be_empty_square 
         end
       end
     end
