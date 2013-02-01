@@ -37,8 +37,8 @@ module RubyChessBoard
     # @return [CoordinateCollection]
     def compact
       collection = clone
-      collection.remove_empty_sets
-      collection.remove_impossible_coordinates
+      collection.remove_empty_sets!
+      collection.remove_impossible_coordinates!
       collection
     end
     
@@ -75,13 +75,13 @@ module RubyChessBoard
 
     # Removes empty sets from the collection.
     # @return [void]
-    def remove_empty_sets
+    def remove_empty_sets!
       @sets.reject!(&:empty?)
     end
     
     # Removes impossible coordinates from the collection.
     # @return [void]
-    def remove_impossible_coordinates
+    def remove_impossible_coordinates!
       @coordinates.reject! { |c| impossible_coordinate?(c) }
     end
   end
