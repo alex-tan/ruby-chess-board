@@ -35,6 +35,49 @@ module RubyChessBoard
       expect(collection.coordinates).to eq(coords)
     end
 
+    describe "#without_self_checks" do
+      let(:board) do
+        board = build(:board)
+        board.move_piece(:d1, :d5)
+        board.move_piece(:e1, :d4)
+        board.move_piece(:d7, :d3)
+        board
+      end
+
+      let(:game)  { build(:game, boards: [board]) }
+      let(:collection) do
+        build :coordinate_collection,
+          sets: original_sets,
+          coordinates: original_coordinates 
+      end
+
+      let(:without_self_checks) do
+        collection.without_self_checks(piece: piece, game: game)
+      end
+
+      describe "sets" do
+        let(:piece)                { board.d5 }
+        let(:original_coordinates) { [] }
+        let(:original_sets) do
+          [
+            coordinate_set(:d6, :d7, :d8),
+            coordinate_set(:e5, :f5, :g5, :h5)
+          ]
+        end
+        
+        it "removes set moves that would put the piece in check" do
+          expected = [original_sets.first]
+          expect(without_self_checks.sets).to eq(expected) 
+        end
+      end
+
+      describe "coordinates" do
+        it "removes coordinates that would put the piece in check" do
+          pending
+        end
+      end
+    end
+
     describe "#without_blocks" do
       let(:board) do
         board = build(:board)
