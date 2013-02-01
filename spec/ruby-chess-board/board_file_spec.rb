@@ -22,6 +22,12 @@ module RubyChessBoard
 
         expect(result).to eq(expected)
       end
+
+      it "replaces nils with EmptySquares" do
+        result = []
+        file.each { |f| result << f }
+        result.each { |r| expect(r).to be_empty_square }
+      end
     end
 
     describe "#has_piece?" do

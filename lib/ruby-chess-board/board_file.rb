@@ -23,12 +23,15 @@ module RubyChessBoard
       find { |rank| rank == piece }
     end
     
+    # @private
+    def each
+      ranks.each { |rank| yield rank || EmptySquare.new }
+    end
+
     # Yields the value of each of the ranks, starting with 1,
     # up through 8.
     # @yield [rank]
-    def each
-      ranks.each { |rank| yield rank }
-    end
+    alias_method :each_rank, :each
     
     # Returns either a piece if there is something at a square or
     # returns an instance of {EmptySquare} if there is not.
