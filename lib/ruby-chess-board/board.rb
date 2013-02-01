@@ -74,6 +74,12 @@ module RubyChessBoard
 
       files[file].set_rank(rank, value)
     end
+    
+    # Returns all pieces of a given color.
+    # @param [Symbol] color :white or :black
+    def pieces(color)
+      files.pieces(color)
+    end
 
     private
     

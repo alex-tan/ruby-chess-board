@@ -45,5 +45,19 @@ module RubyChessBoard
     def index(file)
       files.index(file)
     end
+    
+    # Returns all pieces of a given color.
+    # @param [Symbol] color :white or :black
+    def pieces(color)
+      pieces = []
+      
+      each do |file|
+        file.each_rank do |piece|
+          pieces << piece if piece.kind_of?(Piece) && piece.color == color 
+        end
+      end
+
+      pieces
+    end
   end
 end

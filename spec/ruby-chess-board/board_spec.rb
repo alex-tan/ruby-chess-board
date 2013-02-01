@@ -11,8 +11,8 @@ module RubyChessBoard
         it "mirrors the board" do
           board.move_piece(:a2, :a4)
 
-          expect(new_board.a2).to be_empty_square
-          expect(new_board.a4).to be_piece(Pawn).with_color(:white).with_starting_position(:a2)
+          expect(new_board.at_square(:a2)).to be_empty_square
+          expect(new_board.at_square(:a4)).to be_piece(Pawn).with_color(:white).with_starting_position(:a2)
         end
 
         it "does not affect the origin board" do
@@ -24,32 +24,32 @@ module RubyChessBoard
 
       context "when no board is provided" do
         it "sets up the board" do
-          expect(board.a1).to be_piece(Rook).with_color(:white).with_starting_position(:a1)
-          expect(board.b1).to be_piece(Knight).with_color(:white).with_starting_position(:b1)
-          expect(board.c1).to be_piece(Bishop).with_color(:white).with_starting_position(:c1)
-          expect(board.d1).to be_piece(Queen).with_color(:white).with_starting_position(:d1)
-          expect(board.e1).to be_piece(King).with_color(:white).with_starting_position(:e1)
-          expect(board.f1).to be_piece(Bishop).with_color(:white).with_starting_position(:f1)
-          expect(board.g1).to be_piece(Knight).with_color(:white).with_starting_position(:g1)
-          expect(board.h1).to be_piece(Rook).with_color(:white).with_starting_position(:h1)
+          expect(board.at_square(:a1)).to be_piece(Rook).with_color(:white).with_starting_position(:a1)
+          expect(board.at_square(:b1)).to be_piece(Knight).with_color(:white).with_starting_position(:b1)
+          expect(board.at_square(:c1)).to be_piece(Bishop).with_color(:white).with_starting_position(:c1)
+          expect(board.at_square(:d1)).to be_piece(Queen).with_color(:white).with_starting_position(:d1)
+          expect(board.at_square(:e1)).to be_piece(King).with_color(:white).with_starting_position(:e1)
+          expect(board.at_square(:f1)).to be_piece(Bishop).with_color(:white).with_starting_position(:f1)
+          expect(board.at_square(:g1)).to be_piece(Knight).with_color(:white).with_starting_position(:g1)
+          expect(board.at_square(:h1)).to be_piece(Rook).with_color(:white).with_starting_position(:h1)
           ('a'..'h').each do |letter|
             square = letter + '2'
-            expect(board.public_send(square)).to be_piece(Pawn).
+            expect(board.at_square(square)).to be_piece(Pawn).
               with_color(:white).
               with_starting_position(square)
           end
 
-          expect(board.a8).to be_piece(Rook).with_color(:black).with_starting_position(:a8)
-          expect(board.b8).to be_piece(Knight).with_color(:black).with_starting_position(:b8)
-          expect(board.c8).to be_piece(Bishop).with_color(:black).with_starting_position(:c8)
-          expect(board.d8).to be_piece(Queen).with_color(:black).with_starting_position(:d8)
-          expect(board.e8).to be_piece(King).with_color(:black).with_starting_position(:e8)
-          expect(board.f8).to be_piece(Bishop).with_color(:black).with_starting_position(:f8)
-          expect(board.g8).to be_piece(Knight).with_color(:black).with_starting_position(:g8)
-          expect(board.h8).to be_piece(Rook).with_color(:black).with_starting_position(:h8)
+          expect(board.at_square(:a8)).to be_piece(Rook).with_color(:black).with_starting_position(:a8)
+          expect(board.at_square(:b8)).to be_piece(Knight).with_color(:black).with_starting_position(:b8)
+          expect(board.at_square(:c8)).to be_piece(Bishop).with_color(:black).with_starting_position(:c8)
+          expect(board.at_square(:d8)).to be_piece(Queen).with_color(:black).with_starting_position(:d8)
+          expect(board.at_square(:e8)).to be_piece(King).with_color(:black).with_starting_position(:e8)
+          expect(board.at_square(:f8)).to be_piece(Bishop).with_color(:black).with_starting_position(:f8)
+          expect(board.at_square(:g8)).to be_piece(Knight).with_color(:black).with_starting_position(:g8)
+          expect(board.at_square(:h8)).to be_piece(Rook).with_color(:black).with_starting_position(:h8)
           ('a'..'h').each do |letter|
             square = letter + '7'
-            expect(board.public_send(square)).to be_piece(Pawn).
+            expect(board.at_square(square)).to be_piece(Pawn).
               with_color(:black).
               with_starting_position(square)
           end
@@ -59,6 +59,17 @@ module RubyChessBoard
               expect(board.public_send(rank + file.to_s)).to be_empty_square
             end
           end
+        end
+      end
+    end
+
+    describe "#pieces" do
+      context "when provided with a color" do
+        it "returns all pieces of that color" do
+          pieces = board.pieces(:white) 
+          expect(pieces.size).to eq(16)
+
+          pieces.each { |piece| expect(piece.color).to eq(:white) }
         end
       end
     end
