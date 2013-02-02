@@ -59,10 +59,13 @@ module RubyChessBoard
       let(:game) { build(:game) }
 
       it "compacts and returns the raw directional moves" do
-        piece.expects(:raw_directional_moves).with(game).returns(moves = stub)
-        moves.expects(:compact).returns(result = stub)
+        pending('writing spec')
+      end
+    end
 
-        expect(piece.directional_moves(game)).to eq(result)
+    describe "#possible_moves" do
+      it "limits directioal moves by removing self-check moves" do
+        pending('writing spec')
       end
     end
       

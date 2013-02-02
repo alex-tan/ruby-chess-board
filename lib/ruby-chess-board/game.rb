@@ -6,13 +6,15 @@ module RubyChessBoard
     class BeginningOfGame < Exception
     end
 
+    include MarshalClone
+
     attr_reader :move, :boards
 
     def initialize(boards)
       @boards = boards
       @move   = 0
     end
-    
+
     # Returns the board at a given move number but does not change
     # the move the board is at.
     # @param [Integer] move_number

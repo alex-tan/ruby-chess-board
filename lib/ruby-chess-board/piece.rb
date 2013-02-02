@@ -33,12 +33,13 @@ module RubyChessBoard
     
     # Returns a coordinate collection made up of individual coordinates and/or coordinate sets
     # in which the piece can hypothetically move. This still may include moves which are
-    # blocked or occupied by pieces of the same color.
+    # occupied by pieces of the same color.
     # @param [Game] game
     # @return [CoordinateCollection]
     def directional_moves(game)
-      moves = raw_directional_moves(game)
-      moves.compact
+      raw_directional_moves(game).
+        without_impossible_coordinates.
+        without_blocks(game: game, piece: self)
     end
   
     # Returns the opposite color of the Piece.

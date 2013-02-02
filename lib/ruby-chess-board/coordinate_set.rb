@@ -1,6 +1,6 @@
 module RubyChessBoard
   class CoordinateSet
-    include Enumerable
+    include Enumerable, MarshalClone
 
     attr_reader :coordinates
 
@@ -55,7 +55,7 @@ module RubyChessBoard
         end
       end
 
-      self
+      clone
     end
 
     private

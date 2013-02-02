@@ -5,7 +5,7 @@ module RubyChessBoard
     subject(:collection) { build(:coordinate_collection) }
 
     describe "initialize" do
-      its(:sets) { should == [] }
+      its(:sets)        { should == [] }
       its(:coordinates) { should == [] }
     end
 
@@ -44,7 +44,7 @@ module RubyChessBoard
         board
       end
 
-      let(:game)  { build(:game, boards: [board]) }
+      let(:game) { build(:game, boards: [board]) }
       let(:collection) do
         build :coordinate_collection,
           sets: original_sets,
@@ -85,12 +85,12 @@ module RubyChessBoard
         board
       end
 
-      let(:game)  { build(:game, boards: [board]) }
-      let(:piece) { board.d4 }
-      let(:original_sets) { [coordinate_set(:c4, :b4, :a4)] }
+      let(:game)                 { build(:game, boards: [board]) }
+      let(:piece)                { board.d4 }
+      let(:original_sets)        { [coordinate_set(:c4, :b4, :a4)] }
       let(:original_coordinates) { coordinate_array(:d5) }
       let(:collection) do
-        collection = build :coordinate_collection,
+        build :coordinate_collection,
           sets: original_sets,
           coordinates: original_coordinates 
       end
@@ -173,33 +173,74 @@ module RubyChessBoard
       end
     end
 
-    describe "#compact" do
+    describe "#without_empty_sets" do
       let(:real_coordinate_set) { build(:coordinate_set) }
-      let(:real_coordinate)     { build(:coordinate) }
-
       subject(:collection) do
         build :coordinate_collection,
           sets: [
             real_coordinate_set,
             build(:coordinate_set, coordinates: [])
-        ],
+        ]
+      end
+
+      let(:without_empty_sets) { collection.without_empty_sets }
+
+      it "returns a collection without empty sets" do
+        expect(without_empty_sets.sets).to eq([real_coordinate_set])
+      end
+    end
+
+    describe "#without_impossible_coordinates" do
+      let(:real_coordinate) { build(:coordinate) }
+
+      subject(:collection) do
+        build :coordinate_collection,
           coordinates: [
             real_coordinate,
             build(:impossible_coordinate)
         ]
       end
 
-      let(:compacted) { collection.compact }
-
-      it "does not affect the original collection" do
-        expect { compacted }.to_not change { collection }
-      end
-      it "returns a collection without empty sets" do
-        expect(compacted.sets).to eq([real_coordinate_set])
-      end
-
+      let(:new_collection) { collection.without_impossible_coordinates }
+      
       it "returns a collection without impossible coordinates" do
-        expect(compacted.coordinates).to eq([real_coordinate])
+        expect(new_collection.coordinates).to eq([real_coordinate])
+      end
+    end
+
+    describe "#include?" do
+      let(:coordinate)  { build(:coordinate) }
+      let(:coordinates) { [] }
+      let(:sets)        { [] }
+      
+      let(:collection) do
+        build :coordinate_collection,
+          coordinates: coordinates,
+          sets: sets
+      end
+
+      context "when a set includes the coordinate" do
+        let(:sets) do
+          [build(:coordinate_set, coordinates: [coordinate])]
+        end
+
+        it "should be true" do
+          expect(collection.include?(coordinate)).to be_true
+        end
+      end
+
+      context "when coordinates include the coordinate" do
+        let(:coordinates) { [ coordinate ] } 
+
+        it "should be true" do
+          expect(collection.include?(coordinate)).to be_true
+        end
+      end
+
+      context "when neither sets nor coordinates include the coordinate" do
+        it "should be false" do
+          expect(collection.include?(coordinate)).to be_false
+        end
       end
     end
   end

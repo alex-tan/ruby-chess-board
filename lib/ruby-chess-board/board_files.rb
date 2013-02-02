@@ -1,7 +1,7 @@
 module RubyChessBoard
   # Encapsulates eight {BoardFile} objects.
   class BoardFiles
-    include Enumerable, BoardReferences
+    include BoardReferences, Enumerable, MarshalClone
     
     # @private
     attr_reader :files
@@ -23,13 +23,6 @@ module RubyChessBoard
       files.each_with_index { |file, index| yield file, file_names[index] }
     end
     
-    # Returns a clone of itelf. Changing the clone's files or positions will
-    # not affect the original object.
-    # @return [BoardFiles]
-    def clone
-      Marshal::load(Marshal.dump(self))
-    end
-   
     # Takes a file name and returns the corresponding {BoardFile}.
     # @param [Symbol, String] file_name
     def [](file_name)

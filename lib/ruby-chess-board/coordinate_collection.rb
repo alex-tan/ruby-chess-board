@@ -1,6 +1,6 @@
 module RubyChessBoard
   class CoordinateCollection
-    include CoordinateHelpers
+    include CoordinateHelpers, MarshalClone
 
     # @option options [Array] :coordinates
     # @option options [Array] :sets
@@ -25,11 +25,10 @@ module RubyChessBoard
         collection.sets == sets &&
         collection.coordinates == coordinates
     end
-    
-    # Returns a deep clone of itself.
-    # @return [CoordinateCollection]
-    def clone
-      Marshal::load(Marshal.dump(self))
+
+    def include?(coordinate)
+      coordinates.include?(coordinate) ||
+        sets.any? { |set| set.include?(coordinate) }
     end
     
     # Clones the collection with individual coordinates blocked by allies of the piece
@@ -78,7 +77,7 @@ module RubyChessBoard
       collection.sets.map! { |set| set.without_blocks(piece: piece, game: game) }
       collection
     end
-
+    
     # Returns a new collection with empty sets removed.
     # @return [CoordinateCollection]
     def without_empty_sets

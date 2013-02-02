@@ -10,6 +10,8 @@ module RubyChessBoard
 
     include Enumerable
     
+    # TODO: Replace direct access to avoid accessing nils rather
+    # than empty squares.
     # @private
     attr_reader :ranks
     
