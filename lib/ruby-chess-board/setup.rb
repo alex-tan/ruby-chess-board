@@ -43,12 +43,21 @@ module RubyChessBoard
     attr_reader :board
 
     def setup
+      setup_major_pieces
+      setup_pawns
+    end
+
+    private
+
+    def setup_major_pieces
       Setup.major_piece_positions.each do |color, positions|
         positions.each do |position, piece_class|
           setup_piece piece_class, color: color, starting_position: position
         end
       end
+    end
 
+    def setup_pawns
       Setup.pawn_ranks.each do |color, rank|
         Board.file_names.each do |file|
           square = "#{file}#{rank}"
@@ -57,10 +66,8 @@ module RubyChessBoard
       end
     end
 
-    private
-
     def setup_piece(piece_class, options = {})
-      piece = piece_class.new color:             options[:color],
+      piece = piece_class.new color: options[:color],
         starting_position: options[:starting_position]
 
       board.set_square(options[:starting_position], piece)
