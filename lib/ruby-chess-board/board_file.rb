@@ -14,7 +14,7 @@ module RubyChessBoard
     # than empty squares.
     # @private
     attr_reader :ranks
-    
+
     def initialize
       @ranks = Array.new(8)
     end

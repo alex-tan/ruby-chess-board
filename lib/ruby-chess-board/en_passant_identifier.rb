@@ -23,6 +23,12 @@ module RubyChessBoard
 
       opportunities
     end
+    
+    # The board at the current state of the game.
+    # @return [Board]
+    def board
+      game.board
+    end
 
     # The coordinate the pawn can take at if an en passant is possible.
     # @options options [Symbol] :file
@@ -63,7 +69,6 @@ module RubyChessBoard
     # @param [Symbol] file
     # @return [Boolean]
     def opponent_pawn_in_same_rank_at_file?(file)
-      board     = game.board
       at_square = board.at_square("#{file}#{current_position.rank}")
       opponent_pawn?(at_square)
     end
@@ -73,8 +78,8 @@ module RubyChessBoard
     # @param [Symbol] file
     # @return [Boolean]
     def opponent_pawn_was_in_starting_rank_last_move_at_file?(file)
-      board     = board_at_last_move
-      at_square = board.at_square("#{file}#{opponent_pawn_starting_rank}")
+      last_board = board_at_last_move
+      at_square  = last_board.at_square("#{file}#{opponent_pawn_starting_rank}")
       opponent_pawn?(at_square)
     end
 
@@ -101,7 +106,6 @@ module RubyChessBoard
     # The current position of the capturing pawn.
     # @return [Coordinate]
     def current_position
-      board = game.board
       board.coordinates_of(capturing_pawn)
     end
     
