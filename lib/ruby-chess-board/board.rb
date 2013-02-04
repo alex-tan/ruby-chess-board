@@ -80,7 +80,21 @@ module RubyChessBoard
     def pieces(color)
       files.pieces(color)
     end
+    
+    Board.file_names.each do |file|
+      Board.rank_names.each do |rank|
+        square = "#{file}#{rank}"
+         
+        define_method(square) do
+          at_square(square)
+        end
 
+        define_method("#{square}=") do |value|
+          set_square(square, value)
+        end
+      end
+    end
+    
     private
 
     def file_and_rank(square_name)
@@ -91,20 +105,6 @@ module RubyChessBoard
       rank = rank.to_i
 
       return file, rank
-    end
-
-    def method_missing(method, *args)
-      method = method.to_s
-
-      square = /[a-h][1-8]/
-      case method
-      when /^#{square}$/
-        at_square(method)
-      when /^#{square}=$/
-        square = method.gsub("=", '')
-        set_square(square, *args)
-      else super
-      end
     end
   end
 end
