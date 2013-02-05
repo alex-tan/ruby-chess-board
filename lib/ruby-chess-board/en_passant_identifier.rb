@@ -2,7 +2,14 @@ module RubyChessBoard
   # Identifies when an en passant move is possible. Each instance of the class is meant to
   # be used only once.
   class EnPassantIdentifier
-    attr_reader :game, :capturing_pawn
+    # The game the identifier was initialized with.
+    # @return [Game]
+    attr_reader :game
+    
+    # The capturing pawn the identifier was initialized with.
+    # @return [Pawn]
+    attr_reader :capturing_pawn
+
     # @option options [Game] :game the game at the state in which we're checking for
     #   en passant opportunities
     # @option options [Pawn] :capturing_pawn the pawn that is potentially doing the
@@ -31,7 +38,7 @@ module RubyChessBoard
     end
 
     # The coordinate the pawn can take at if an en passant is possible.
-    # @options options [Symbol] :file
+    # @option options [Symbol] :file
     # @return [Coordinate]
     def capturable_position(options)
       file = options[:file]

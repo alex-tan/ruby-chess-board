@@ -1,4 +1,5 @@
 module RubyChessBoard
+  # A king chess piece.
   class King < Piece
     # @private
     def raw_directional_moves(game)

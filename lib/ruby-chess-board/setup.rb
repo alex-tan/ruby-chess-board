@@ -1,6 +1,9 @@
 module RubyChessBoard
+  # Setups the pieces of a {Board} object.
   class Setup
     class <<self
+      # Represents the positions of non-Pawn pieces.
+      # @return [Hash]
       def major_piece_positions
         {
           white: {
@@ -26,22 +29,18 @@ module RubyChessBoard
           }
         }
       end
-
-      def pawn_ranks
-        {
-          white: 2,
-          black: 7
-        }
-      end
     end
-
 
     def initialize(options = {})
       @board = options[:board]
     end
-
+    
+    # The board that is being setup.
+    # @return [Board]
     attr_reader :board
-
+      
+    # Sets up the board.
+    # @return [void]
     def setup
       setup_major_pieces
       setup_pawns
@@ -58,7 +57,7 @@ module RubyChessBoard
     end
 
     def setup_pawns
-      Setup.pawn_ranks.each do |color, rank|
+      Pawn.starting_ranks.each do |color, rank|
         Board.file_names.each do |file|
           square = "#{file}#{rank}"
           setup_piece Pawn, color: color, starting_position: square

@@ -1,10 +1,22 @@
 module RubyChessBoard
+  # Encapsulates an x and y coordinate, which can be translated to
+  # a file and a rank.
   class Coordinate
     include BoardReferences
-
+    
+    # Representes a coordinate that is not on the chess board.
     ImpossibleCoordinate = Class.new
-
-    attr_reader :x, :y
+    
+    # Returns a value of or between 0 and 7. If the coordinate
+    # file is :a, then x is 0, if :b, then x is 1, etc...
+    # @return [Integer]
+    attr_reader :x
+    
+    # Returns a value of or between 0 and 7. If the coordinate
+    # rank is 1, then y is 0, if the coordinate rank is 2, then y
+    # is 1, etc...
+    # @return [Integer]
+    attr_reader :y
 
     def initialize(*args)
       case args.size

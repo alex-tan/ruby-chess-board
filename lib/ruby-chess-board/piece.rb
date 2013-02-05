@@ -1,4 +1,6 @@
 module RubyChessBoard
+  # Encapsulates a color and starting position, and is used
+  # by other objects to represent the piece of a chess game.
   class Piece
     class <<self
       # Colors a piece can be.

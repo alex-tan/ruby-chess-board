@@ -1,9 +1,12 @@
 module RubyChessBoard
+  # Encapsulates an ordered list of {Coordinate} objects.
   class CoordinateSet
     include Enumerable, MarshalClone
 
     attr_reader :coordinates
-
+    
+    # Initializes with an array of coordinates.
+    # @param [Array<Coordinate>] coordinates
     def initialize(coordinates)
       @coordinates = coordinates 
     end

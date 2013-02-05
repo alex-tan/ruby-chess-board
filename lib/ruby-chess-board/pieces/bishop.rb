@@ -1,4 +1,5 @@
 module RubyChessBoard
+  # A bishop chess piece.
   class Bishop < Piece
     # @private
     def raw_directional_moves(game)

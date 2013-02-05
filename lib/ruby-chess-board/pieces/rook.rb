@@ -1,4 +1,5 @@
 module RubyChessBoard
+  # A rook chess piece.
   class Rook < Piece
     # @private
     def raw_directional_moves(game)

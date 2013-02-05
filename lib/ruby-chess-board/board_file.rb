@@ -1,10 +1,14 @@
 module RubyChessBoard
   # Represents a single file made up of 8 ranks.
   class BoardFile
-    # Instances of this class are used to represent an empty square.
+    # Used to represent an empty square on a {Board}
     class EmptySquare
-      def ==(variable)
-        variable.class == self.class
+      include CoordinateHelpers
+
+      # An empty square only equals other empty squares.
+      # @return [Boolean]
+      def ==(subject)
+        empty_square?(subject)
       end
     end
 

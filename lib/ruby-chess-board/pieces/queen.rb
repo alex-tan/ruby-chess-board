@@ -1,4 +1,5 @@
 module RubyChessBoard
+  # A queen chess piece.
   class Queen < Piece
     # @private
     def raw_directional_moves(game)

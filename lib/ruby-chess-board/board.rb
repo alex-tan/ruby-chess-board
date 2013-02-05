@@ -1,15 +1,25 @@
 module RubyChessBoard
+  # Encapsulates a {BoardFiles} object, which allows it to track
+  # the positions of pieces in a chess game.
   class Board
     class <<self
+      # The board file names as an array of Symbols.
+      # @return [Array<Symbol>]
       def file_names
         ('a'..'h').map(&:to_sym)
       end
-
+      
+      # The board rank names as an array of Integers.
+      # @return [Array<Integer>]
       def rank_names
         (1..8).to_a
       end
     end
-
+    
+    # Initializes the board. If a {Board} is provided,
+    # the piece positions will be the same. If none is provided
+    # the board will be setup for a new game.
+    # @param [Board] board the board to mirror
     def initialize(board = nil)
       if board
         @files = board.files.clone
@@ -77,6 +87,7 @@ module RubyChessBoard
      
     # Returns all pieces of a given color.
     # @param [Symbol] color :white or :black
+    # @return [Array<Piece>]
     def pieces(color)
       files.pieces(color)
     end
@@ -84,7 +95,7 @@ module RubyChessBoard
     Board.file_names.each do |file|
       Board.rank_names.each do |rank|
         square = "#{file}#{rank}"
-         
+        
         define_method(square) do
           at_square(square)
         end

@@ -1,12 +1,17 @@
 module RubyChessBoard
+  # A pawn chess piece.
   class Pawn < Piece
     include CoordinateHelpers
 
     class <<self
+      # Returns the starting ranks of each colored pawn.
+      # @return [Hash]
       def starting_ranks
         { white: 2, black: 7 }
       end
-
+      
+      # Returns the rank directions of each colored pawn.
+      # @return [Hash]
       def rank_directions
         { white: 1, black: -1 }
       end

@@ -25,6 +25,17 @@ module RubyChessBoard
     
     # @return [Integer] the rank the piece is moving from.
     attr_reader :rank
+      
+    # Identifies PGN move notation and returns the instance with all possible
+    # information attached.
+    # @param [String] move
+    # @return [MoveIdentifier]
+    def identify(move)
+      set_qualities move_qualities(move)
+      self.clone 
+    end
+
+    private
 
     PIECE_MAP = {
       'K' => King,
@@ -40,17 +51,6 @@ module RubyChessBoard
     RANK                   = "[1-8]"
     CAPTURE                = "x{0,1}"
     SQUARE                 = [FILE, RANK].join('')
-
-    # Identifies PGN move notation and returns the instance with all possible
-    # information attached.
-    # @param [String] move
-    # @return [MoveIdentifier]
-    def identify(move)
-      set_qualities move_qualities(move)
-      self.clone 
-    end
-
-    private
 
     def move_qualities(move)
       case move

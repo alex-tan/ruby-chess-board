@@ -1,8 +1,14 @@
 module RubyChessBoard
+  # Encapsulates an ordered list of {Board} objects, which join
+  # to represent a chess game.
   class Game
+    # An exception raised when an attempt to navigate past the
+    # end of the game is made.
     class EndOfGame < Exception
     end
-
+    
+    # An exception raised when an attempt to navigate before
+    # the beginning of the game is made.
     class BeginningOfGame < Exception
     end
 
