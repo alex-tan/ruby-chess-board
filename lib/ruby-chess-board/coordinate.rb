@@ -114,7 +114,7 @@ module RubyChessBoard
     end
 
     def possible_coordinates
-      0..7
+      @possible_coordinates ||= 0..7
     end
   end
 end

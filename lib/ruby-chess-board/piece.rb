@@ -21,7 +21,7 @@ module RubyChessBoard
       @color             = options[:color].to_sym
       @starting_position = options[:starting_position].to_sym
     end
-    
+     
     # Pieces are equal if their class, color, and starting position are
     # the same.
     # @return [Boolean]

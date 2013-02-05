@@ -47,6 +47,7 @@ module RubyChessBoard
       end
 
       let(:game) { build(:game, boards: [board]) }
+
       let(:collection) do
         build :coordinate_collection,
           sets: original_sets,
