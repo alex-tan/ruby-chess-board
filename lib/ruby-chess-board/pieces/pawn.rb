@@ -15,7 +15,7 @@ module RubyChessBoard
     # @private
     def raw_directional_moves(game)
       board    = game.board
-      position = board.coordinates_of(self)
+      position = coordinates_in_game(game)
       
       collection = CoordinateCollection.new
 

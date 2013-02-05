@@ -73,5 +73,13 @@ module RubyChessBoard
     def ally?(variable)
       variable.kind_of?(Piece) && variable.color == color
     end
+    
+    # Returns the coordinates of itself in a given game.
+    # @param [Game] game
+    # @return [Coordinate]
+    def coordinates_in_game(game)
+      board = game.board
+      board.coordinates_of(self)
+    end
   end
 end
