@@ -66,14 +66,14 @@ module RubyChessBoard
 
     # Returns true if the variable is a Piece and its color is the opposite.
     # @return [Boolean]
-    def opponent?(variable)
-      variable.kind_of?(Piece) && variable.color == opposite_color 
+    def opponent?(subject)
+      subject.kind_of?(Piece) && subject.color == opposite_color 
     end
 
     # Returns true if the variable is a Piece and its color is the same.
     # @return [Boolean]
-    def ally?(variable)
-      variable.kind_of?(Piece) && variable.color == color
+    def ally?(subject)
+      subject.kind_of?(Piece) && subject.color == color
     end
     
     # Returns the coordinates of itself in a given game.
