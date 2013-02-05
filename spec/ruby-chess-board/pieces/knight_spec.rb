@@ -12,7 +12,7 @@ module RubyChessBoard
         [board]
       end
       
-      it "should include all possible L moves" do
+      it "returns all coordinates an L-move away" do
         knight = game.board.d4
         expected = build :coordinate_collection,
           coordinates: coordinate_array(:e6, :f5, :f3, :e2, :c2, :b3, :b5, :c6)

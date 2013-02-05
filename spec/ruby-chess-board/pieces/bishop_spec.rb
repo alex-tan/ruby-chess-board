@@ -12,7 +12,7 @@ module RubyChessBoard
         [board]
       end
 
-      it "includes all diagonal positions on the board" do
+      it "returns four relative sets from the current position" do
         bishop = game.board.d4
 
         expected = build :coordinate_collection, sets: [

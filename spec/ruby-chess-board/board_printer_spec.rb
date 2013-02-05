@@ -6,7 +6,7 @@ module RubyChessBoard
   describe BoardPrinter do
     subject(:printer) { BoardPrinter.new(build(:board)) }
      
-    it "can represent Pieces as icons" do
+    it "can represent pieces as icons" do
       expect(printer.icon(build(:king))).to eq('♔')
       expect(printer.icon(build(:queen))).to eq('♕')
       expect(printer.icon(build(:rook))).to eq('♖')

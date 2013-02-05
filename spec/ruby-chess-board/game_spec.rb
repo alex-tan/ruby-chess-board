@@ -6,7 +6,7 @@ module RubyChessBoard
     subject(:game) { build(:game, boards: boards) }
 
     describe "initialize" do
-      it "should be at move 0" do
+      it "is at move 0" do
         expect(game.move).to eq(0)
       end
 
@@ -16,13 +16,13 @@ module RubyChessBoard
     end
 
     describe "#moves" do
-      it "should return the number of boards - 1" do
+      it "returns one less than the number of boards" do
         expect(game.moves).to eq(1)
       end
     end
 
     describe "#board" do
-      it "should return the board based on move number" do
+      it "returns the board at its move number" do
         expect(game.board).to eq(boards.first)
         game.forward
         expect(game.board).to eq(boards.last)

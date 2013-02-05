@@ -9,24 +9,28 @@ module RubyChessBoard
     end
 
     describe "#each" do
-      it "yields each of the ranks" do
-        expected = (1..8).to_a
+      context "when there is something occupying a rank" do
+        it "yields it" do
+          expected = (1..8).to_a
 
-        expected.each do |number|
-          file.set_rank(number, number)
+          expected.each do |number|
+            file.set_rank(number, number)
+          end
+
+          result = []
+
+          file.each { |rank| result << rank }
+
+          expect(result).to eq(expected)
         end
-
-        result = []
-
-        file.each { |rank| result << rank }
-
-        expect(result).to eq(expected)
       end
-
-      it "replaces nils with EmptySquares" do
-        result = []
-        file.each { |f| result << f }
-        result.each { |r| expect(r).to be_empty_square }
+      
+      context "when there is nothing occupying a rank" do
+        it "yields an empty square" do
+          result = []
+          file.each { |f| result << f }
+          result.each { |r| expect(r).to be_empty_square }
+        end
       end
     end
 
@@ -40,7 +44,7 @@ module RubyChessBoard
         end
       end
 
-      context "when none of its ranks contain a piece" do
+      context "when none of its ranks contains a piece" do
         it 'is false' do
           expect(file).to_not have_piece(piece)
         end
@@ -49,7 +53,7 @@ module RubyChessBoard
 
     describe "#at_rank" do
       context "when there is something there" do
-        it "returns what is at the rank number" do
+        it "returns it" do
           piece = build(:pawn)
 
           file.set_rank(4, piece)
@@ -59,14 +63,14 @@ module RubyChessBoard
       end
 
       context "when there is nothing there" do
-        it "returns an instance of EmptySquare" do
+        it "returns an empty square" do
           expect(file.at_rank(4)).to be_empty_square 
         end
       end
     end
 
     describe "#set_rank" do
-      it "sets a rank to the value provided" do
+      it "sets ranks" do
         piece = build(:pawn)
         expect { 
           file.set_rank(5, piece)

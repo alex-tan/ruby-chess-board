@@ -12,7 +12,7 @@ module RubyChessBoard
         [board]
       end
 
-      it "includes straight lines in all directions" do
+      it "returns coordinate sets in all 8 directions" do
         game.last
         queen = game.board.d4
 

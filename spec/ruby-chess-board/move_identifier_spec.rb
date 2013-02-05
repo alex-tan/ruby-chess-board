@@ -43,7 +43,7 @@ module RubyChessBoard
     end
   end
 
-  describe MoveIdentifier do
+  describe MoveIdentifier, "identification formats" do
     subject(:identifier) { MoveIdentifier.new }
 
     before do
@@ -175,7 +175,7 @@ module RubyChessBoard
 
       it_behaves_like "castle identification"
 
-      it "identifies move type as :kingside_castle" do
+      it "identifies move type as kingside castle" do
         expect(identity.move_type).to eq(:kingside_castle) 
       end 
 
@@ -187,7 +187,7 @@ module RubyChessBoard
     describe "O-O-O" do
       let(:identity) { identifier.identify('O-O-O') }
 
-      it "identifies move type as :queenside_castle" do
+      it "identifies move type as queenside castle" do
         expect(identity.move_type).to eq(:queenside_castle)
       end
 

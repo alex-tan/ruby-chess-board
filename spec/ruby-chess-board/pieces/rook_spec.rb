@@ -12,7 +12,7 @@ module RubyChessBoard
         [board]
       end
 
-      it "should include all squares directly horizontal or vertical" do
+      it "returns 2 horizontal sets and 2 vertical sets" do
         board = game.board
         rook  = board.d4
 

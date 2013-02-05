@@ -4,7 +4,7 @@ module RubyChessBoard
   describe BoardFiles do
     subject(:files) { BoardFiles.new }
 
-    it "is made up of eight BoardFile objects" do
+    it "is made up of eight board files" do
       retrieved = []
 
       files.each { |file| retrieved << file }

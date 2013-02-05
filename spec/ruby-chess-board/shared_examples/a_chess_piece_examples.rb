@@ -64,7 +64,7 @@ module RubyChessBoard
     end
 
     describe "#possible_moves" do
-      it "limits directioal moves by removing self-check moves" do
+      it "limits directional moves by removing self-check moves" do
         pending('writing spec')
       end
     end

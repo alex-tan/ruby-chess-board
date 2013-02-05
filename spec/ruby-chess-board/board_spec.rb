@@ -123,7 +123,7 @@ module RubyChessBoard
       end
 
       context "when no piece occupies a square" do
-        it "returns EmptySquare" do
+        it "returns an empty square" do
           expect(board.g5).to be_empty_square
         end
       end

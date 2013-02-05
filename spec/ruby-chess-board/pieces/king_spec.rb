@@ -16,7 +16,7 @@ module RubyChessBoard
         [board_1, board_2]
       end
 
-      it "includes all immediate spaces around it" do
+      it "returns the relative coordinates of all spaces around it" do
         king # preload king
         game.last
         expected = build :coordinate_collection,

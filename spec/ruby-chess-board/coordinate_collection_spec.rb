@@ -5,21 +5,23 @@ module RubyChessBoard
     subject(:collection) { build(:coordinate_collection) }
 
     describe "initialize" do
-      its(:sets)        { should == [] }
-      its(:coordinates) { should == [] }
-    end
-
-    describe "initialize with arguments" do
-      let(:sets)        { [build(:coordinate_set)] }
-      let(:coordinates) { [build(:coordinate)] }
-
-      subject(:collection) do
-        build :coordinate_collection, sets: sets, coordinates: coordinates
+      context "without arguments" do
+        its(:sets)        { should == [] }
+        its(:coordinates) { should == [] }
       end
 
-      it "can set collections and sets" do
-        expect(collection.sets).to eq(sets) 
-        expect(collection.coordinates).to eq(coordinates)
+      context "without arguments" do
+        let(:sets)        { [build(:coordinate_set)] }
+        let(:coordinates) { [build(:coordinate)] }
+
+        subject(:collection) do
+          build :coordinate_collection, sets: sets, coordinates: coordinates
+        end
+
+        it "can set collections and sets" do
+          expect(collection.sets).to eq(sets) 
+          expect(collection.coordinates).to eq(coordinates)
+        end
       end
     end
 
@@ -97,7 +99,7 @@ module RubyChessBoard
 
       let(:without_blocks) { collection.without_blocks(piece: piece, game: game) }
 
-      describe "#sets" do
+      describe "sets" do
         context "when there are no blocks" do
           it "keeps all sets the same" do
             expect(without_blocks.sets).to eq(original_sets)
@@ -105,7 +107,7 @@ module RubyChessBoard
         end
 
         context "when there is a block by a piece of the same color" do
-          it "removes pieces from that point on" do
+          it "removes pieces from that point on in the set" do
             board.move_piece(:b2, :b4)
 
             expected = [coordinate_set(:c4)]
@@ -115,7 +117,7 @@ module RubyChessBoard
         end
 
         context "when there is a block by a piece of a different color" do
-          it "removes pieces after that point" do
+          it "removes pieces after that point in the set" do
             board.move_piece(:b7, :b4)
             expected = [coordinate_set(:c4, :b4)]
 
@@ -124,15 +126,15 @@ module RubyChessBoard
         end
       end
 
-      describe "#coordinates" do
+      describe "coordinates" do
         context "when there are no blocks" do
-          it "returns all the coordinates" do
+          it "removes no coordinates" do
             expect(without_blocks.coordinates).to eq(original_coordinates)
           end
         end
 
         context "when there are blocks by opponent pieces" do
-          it "does not remove those coordinates" do
+          it "removes no coordinates" do
             board.move_piece(:d7, :d5) 
             expect(without_blocks.coordinates).to eq(original_coordinates) 
           end
@@ -149,22 +151,22 @@ module RubyChessBoard
 
     describe "equality testing" do
       context "when sets and coordinates are equal" do
-        it "should be equal" do
+        it "equals the subject" do
           collection_2 = build(:coordinate_collection)
           expect(collection).to eq(collection_2)
         end 
       end
 
       context "when sets are not equal" do
-        it "should not be equal" do
+        it "does not equal the subject" do
           collection_2 = build :coordinate_collection,
             sets: [build(:coordinate_set)]
           expect(collection).to_not eq(collection_2)
         end 
       end
 
-      context "when coordinates are equal" do
-        it "should not be equal" do
+      context "when coordinates are not equal" do
+        it "does not equal the subject" do
           collection_2 = build :coordinate_collection,
             coordinates: [build(:coordinate)] 
 
@@ -224,7 +226,7 @@ module RubyChessBoard
           [build(:coordinate_set, coordinates: [coordinate])]
         end
 
-        it "should be true" do
+        it "is true" do
           expect(collection.include?(coordinate)).to be_true
         end
       end
@@ -232,13 +234,13 @@ module RubyChessBoard
       context "when coordinates include the coordinate" do
         let(:coordinates) { [ coordinate ] } 
 
-        it "should be true" do
+        it "is true" do
           expect(collection.include?(coordinate)).to be_true
         end
       end
 
       context "when neither sets nor coordinates include the coordinate" do
-        it "should be false" do
+        it "is false" do
           expect(collection.include?(coordinate)).to be_false
         end
       end
