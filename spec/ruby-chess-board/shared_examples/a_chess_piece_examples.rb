@@ -22,7 +22,7 @@ module RubyChessBoard
     subject(:piece) { piece_factory }
 
     describe "testing for equality" do
-      context "when the pieces share the same class, color, and starting position" do
+      context "when the subject shares the same class, color, and starting position" do
         let(:piece_2) { piece_factory }
 
         specify 'they should be equal' do
@@ -30,7 +30,7 @@ module RubyChessBoard
         end
       end
 
-      context "when the pieces do not share color" do
+      context "when the subject does not share color" do
         let(:piece_2) { piece_factory(color: :black) }
 
         specify 'they should not be equal' do
@@ -38,7 +38,7 @@ module RubyChessBoard
         end
       end
 
-      context "when the pieces don't share class" do
+      context "when the subject does not share class" do
         let(:piece_2) { alternate_factory(starting_position: piece.starting_position) }
 
         specify 'they should not be equal' do
@@ -46,7 +46,7 @@ module RubyChessBoard
         end
       end
 
-      context "when the pieces don't share starting position" do
+      context "when the subject does not share starting position" do
         let(:piece_2) { piece_factory(starting_position: :h7) }
 
         specify 'they should not be equal' do
@@ -93,28 +93,28 @@ module RubyChessBoard
     end
 
     describe "#ally?" do
-      context "when the variable is not a piece" do
+      context "when the subject is not a piece" do
         it "should be nil" do
           coord = build(:impossible_coordinate)
           expect(piece.ally?(coord)).to be_false 
         end
       end 
 
-      context "when the variable is a different piece of the same color" do
+      context "when the subject is a different piece of the same color" do
         it "should be true" do
           ally = alternate_factory(color: piece.color)         
           expect(piece.ally?(ally)).to be_true
         end
       end
 
-      context "when the variable is a the same piece of the same color" do
+      context "when the subject is a the same piece of the same color" do
         it "should be true" do
           ally = piece_factory(color: piece.color)
           expect(piece.ally?(ally)).to be_true
         end
       end
       
-      context "when the variable is the same piece of a different color" do
+      context "when the subject is the same piece of a different color" do
         it "should be false" do
           opponent = piece_factory(color: piece.opposite_color)
           expect(piece.ally?(opponent)).to be_false

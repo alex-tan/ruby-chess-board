@@ -10,7 +10,7 @@ module RubyChessBoard
         expect(square).to eq(square_2)
       end
 
-      it "is not equal to other pieces" do
+      it "is not equal to things that are not empty squares" do
         pawn = build(:pawn)
         expect(square).to_not eq(pawn)
       end
