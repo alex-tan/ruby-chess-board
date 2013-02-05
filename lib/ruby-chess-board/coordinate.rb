@@ -31,7 +31,7 @@ module RubyChessBoard
       files
     end
     
-    # Returns the coordinate in this format: '(x, y)'
+    # Returns the square name as a string.
     # @return [String]
     def to_s
       square_name.to_s
