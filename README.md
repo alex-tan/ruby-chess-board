@@ -1,6 +1,6 @@
-# About
+# README
 
-ruby-chess-bord is a collection of objects that have the capability to:
+[ruby-chess-board](https://github.com/alex-tan/ruby-chess-board/) is a collection of objects that have the capability to:
 
 - Determine possible moves a piece can make at a given point in a game.
 - Keep track of positions on a chess board.
