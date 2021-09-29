@@ -1,4 +1,4 @@
-# typed: ignore
+# typed: false
 module RubyChessBoard
   # Encapsulates eight {BoardFile} objects.
   class BoardFiles
@@ -13,7 +13,7 @@ module RubyChessBoard
     
     # Yields each file, starting with a, going through h.
     # @yield [BoardFile] file
-    def each
+    def each(&blk)
       files.each { |file| yield file }
     end
 

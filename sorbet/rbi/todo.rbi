@@ -2,8 +2,5 @@
 #   srb rbi todo
 
 # typed: strong
-module RubyChessBoard::Board::BoardFiles; end
-module RubyChessBoard::Coordinate::CoordinateSet; end
-module RubyChessBoard::CoordinateSet; end
 module T::CompatibilityPatches::RSpecCompatibility::MethodDoubleExtensions; end
 module T::CompatibilityPatches::RSpecCompatibility::RecorderExtensions; end

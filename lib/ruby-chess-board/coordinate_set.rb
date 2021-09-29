@@ -1,4 +1,4 @@
-# typed: ignore
+# typed: false
 module RubyChessBoard
   # Encapsulates an ordered list of {Coordinate} objects.
   class CoordinateSet
@@ -14,7 +14,7 @@ module RubyChessBoard
     
     # Yields each of the coordinates in order.
     # @yield [Coordinate] coordinate
-    def each
+    def each(&blk)
       coordinates.each { |coordinate| yield coordinate }
     end
     
