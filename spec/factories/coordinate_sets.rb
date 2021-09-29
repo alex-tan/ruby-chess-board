@@ -1,13 +1,13 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :coordinate_set, class: RubyChessBoard::CoordinateSet do
-    coordinates do
+    coordinates {
       (1..3).map { |n| RubyChessBoard::Coordinate.new(:a, n) }
-    end
+    }
 
     initialize_with { new(coordinates) }
 
     trait :empty do
-      coordinates []
+      coordinates { [] }
     end
   end
 end

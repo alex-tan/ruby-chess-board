@@ -1,11 +1,11 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :coordinate, class: RubyChessBoard::Coordinate do
-    ignore do
-      square_name :a1
-      x nil
-      y nil
-      file nil
-      rank nil
+    transient do
+      square_name { :a1 }
+      x { nil }
+      y { nil }
+      file { nil }
+      rank { nil }
     end
 
     initialize_with do

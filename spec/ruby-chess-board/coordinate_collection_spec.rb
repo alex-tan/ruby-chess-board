@@ -184,7 +184,7 @@ module RubyChessBoard
         end
 
         it "is true" do
-          expect(collection.include?(coordinate)).to be_true
+          expect(collection.include?(coordinate)).to be true
         end
       end
 
@@ -192,13 +192,13 @@ module RubyChessBoard
         let(:coordinates) { [ coordinate ] } 
 
         it "is true" do
-          expect(collection.include?(coordinate)).to be_true
+          expect(collection.include?(coordinate)).to be true
         end
       end
 
       context "when neither sets nor coordinates include the coordinate" do
         it "is false" do
-          expect(collection.include?(coordinate)).to be_false
+          expect(collection.include?(coordinate)).to be false
         end
       end
     end

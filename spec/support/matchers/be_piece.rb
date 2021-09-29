@@ -19,7 +19,7 @@ RSpec::Matchers.define :be_piece do |piece_class|
     conditions.all?
   end
 
-  failure_message_for_should do
+  failure_message do
     message = "expected that #{@piece.inspect} would be a #{@color} #{piece_class}"
     message << " with starting position #{@starting_position}" if @starting_position
 

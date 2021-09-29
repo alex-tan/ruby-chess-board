@@ -4,8 +4,9 @@ require 'bundler'
 Bundler.require(:default)
 
 require_all "lib/ruby-chess-board/modules"
-require_all "lib/ruby-chess-board"
+require "ruby-chess-board/piece"
 require_all "lib/ruby-chess-board/pieces"
+require_all "lib/ruby-chess-board"
 
 # Contains the RubyChessBoard library.
 module RubyChessBoard

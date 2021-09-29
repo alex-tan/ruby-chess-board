@@ -44,9 +44,10 @@ module RubyChessBoard
     describe "#clone" do
       it "returns a deep clone of itself" do
         new_files = files.clone
-        expect { new_files[:a].set_rank(1, build(:pawn)) }.to_not change {
-          files[:a].at_rank(1)
-        }
+        a = files[:a].at_rank(1)
+        new_files[:a].set_rank(1, build(:pawn))
+        b = files[:a].at_rank(1)
+        expect(a).to eq(b)
       end
     end
 

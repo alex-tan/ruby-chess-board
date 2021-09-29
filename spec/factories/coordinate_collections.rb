@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :coordinate_collection, class: RubyChessBoard::CoordinateCollection do
     sets            { [] }
     coordinates     { [] }

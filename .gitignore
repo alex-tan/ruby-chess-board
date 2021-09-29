@@ -1,2 +1,5 @@
 .yardoc/
 .yardopts
+.bundle/
+vendor/
+.byebug_history

@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :board, class: RubyChessBoard::Board do
-    origin_board nil
+    origin_board { nil }
 
     initialize_with do
       if origin_board
