@@ -1,3 +1,4 @@
+# typed: false
 FactoryBot.define do
   trait :chess_piece do
     color { :white }

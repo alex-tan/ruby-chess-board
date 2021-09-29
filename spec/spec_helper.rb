@@ -1,3 +1,4 @@
+# typed: strict
 require 'factory_bot'
 require 'rspec/its'
 

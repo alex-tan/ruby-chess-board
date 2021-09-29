@@ -1,3 +1,4 @@
+# typed: false
 module RubyChessBoard
   # Encapsulates a color and starting position, and is used
   # by other objects to represent the piece of a chess game.

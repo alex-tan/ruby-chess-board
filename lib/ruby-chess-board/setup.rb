@@ -1,3 +1,4 @@
+# typed: true
 module RubyChessBoard
   # Setups the pieces of a {Board} object.
   class Setup

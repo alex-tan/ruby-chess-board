@@ -1,3 +1,4 @@
+# typed: true
 module RubyChessBoard
   # Contains references to {Board} attributes {Board#file_names} and
   # {Board#rank_names}

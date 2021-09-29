@@ -1,3 +1,4 @@
+# typed: false
 FactoryBot.define do
   factory :coordinate_set, class: RubyChessBoard::CoordinateSet do
     coordinates {

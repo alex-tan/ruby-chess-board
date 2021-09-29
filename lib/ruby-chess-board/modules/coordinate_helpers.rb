@@ -1,3 +1,4 @@
+# typed: true
 module RubyChessBoard
   # Contains methods that help to identify types of coordinates.
   module CoordinateHelpers

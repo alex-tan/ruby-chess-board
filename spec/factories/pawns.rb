@@ -1,3 +1,4 @@
+# typed: false
 FactoryBot.define do
   factory :pawn, class: RubyChessBoard::Pawn do
     chess_piece

@@ -1,3 +1,4 @@
+# typed: false
 FactoryBot.define do
   factory :knight, class: RubyChessBoard::Knight do
     chess_piece

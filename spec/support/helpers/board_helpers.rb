@@ -1,3 +1,4 @@
+# typed: false
 module BoardHelpers
   # Return an array of coordinates.
   def coordinate_array(*coordinates)

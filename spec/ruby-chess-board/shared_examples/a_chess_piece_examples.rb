@@ -1,3 +1,4 @@
+# typed: false
 module RubyChessBoard
   shared_examples_for 'a chess piece' do
     def class_to_factory_name(klass)

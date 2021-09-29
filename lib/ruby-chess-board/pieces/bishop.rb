@@ -1,3 +1,4 @@
+# typed: true
 module RubyChessBoard
   # A bishop chess piece.
   class Bishop < Piece

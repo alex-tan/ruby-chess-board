@@ -1,3 +1,4 @@
+# typed: false
 # Contains a method that allows a deep clone of the object
 # using the Ruby Marshal class.
 module MarshalClone

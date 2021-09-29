@@ -1,3 +1,4 @@
+# typed: false
 module RubyChessBoard
   # Represents a single file made up of 8 ranks.
   class BoardFile
@@ -30,7 +31,7 @@ module RubyChessBoard
     end
     
     # @private
-    def each
+    def each(&block)
       ranks.each { |rank| yield rank || EmptySquare.new }
     end
 

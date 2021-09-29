@@ -1,3 +1,4 @@
+# typed: true
 module RubyChessBoard
   # A pawn chess piece.
   class Pawn < Piece

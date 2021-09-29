@@ -1,3 +1,4 @@
+# typed: true
 module RubyChessBoard
   # Identifies PGN Move notation.
   # @example

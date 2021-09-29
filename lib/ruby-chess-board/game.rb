@@ -1,3 +1,4 @@
+# typed: true
 module RubyChessBoard
   # Encapsulates an ordered list of {Board} objects, which join
   # to represent a chess game.

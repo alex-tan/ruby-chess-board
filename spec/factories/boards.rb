@@ -1,3 +1,4 @@
+# typed: false
 FactoryBot.define do
   factory :board, class: RubyChessBoard::Board do
     origin_board { nil }

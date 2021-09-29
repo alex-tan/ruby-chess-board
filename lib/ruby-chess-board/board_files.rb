@@ -1,3 +1,4 @@
+# typed: ignore
 module RubyChessBoard
   # Encapsulates eight {BoardFile} objects.
   class BoardFiles

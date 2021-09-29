@@ -1,3 +1,4 @@
+# typed: true
 module RubyChessBoard
   # Identifies when an en passant move is possible. Each instance of the class is meant to
   # be used only once.

@@ -1,3 +1,4 @@
+# typed: true
 # encoding: UTF-8
 module RubyChessBoard
   # Prints {Board} objects.

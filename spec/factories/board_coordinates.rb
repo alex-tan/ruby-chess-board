@@ -1,3 +1,4 @@
+# typed: false
 FactoryBot.define do
   factory :coordinate, class: RubyChessBoard::Coordinate do
     transient do

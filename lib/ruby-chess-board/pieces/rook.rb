@@ -1,3 +1,4 @@
+# typed: true
 module RubyChessBoard
   # A rook chess piece.
   class Rook < Piece

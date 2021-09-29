@@ -1,3 +1,4 @@
+# typed: false
 module RubyChessBoard
   # Encapsulates a {BoardFiles} object, which allows it to track
   # the positions of pieces in a chess game.

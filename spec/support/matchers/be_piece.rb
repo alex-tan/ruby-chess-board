@@ -1,3 +1,4 @@
+# typed: false
 RSpec::Matchers.define :be_piece do |piece_class|
   chain(:with_color)             { |color| @color = color }
   chain(:with_starting_position) { |sp| @starting_position = sp }

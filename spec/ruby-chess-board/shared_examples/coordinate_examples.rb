@@ -1,3 +1,4 @@
+# typed: false
 shared_examples "an a1 coordinate" do
   its(:file)        { should == :a  }
   its(:rank)        { should == 1   }

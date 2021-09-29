@@ -1,3 +1,4 @@
+# typed: true
 module RubyChessBoard
   # A king chess piece.
   class King < Piece

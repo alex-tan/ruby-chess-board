@@ -1,3 +1,4 @@
+# typed: true
 module RubyChessBoard
   # Encapsulates both a list of individual {Coordinate} objects and
   # a list of {CoordinateSet} objects.
