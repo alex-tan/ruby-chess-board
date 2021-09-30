@@ -1,8 +1,12 @@
-# typed: false
+# typed: true
 module RubyChessBoard
   # Encapsulates a color and starting position, and is used
   # by other objects to represent the piece of a chess game.
   class Piece
+    extend T::Sig
+    extend T::Helpers
+    abstract!
+
     class <<self
       # Colors a piece can be.
       # @return [Array<Symbol>]
@@ -51,6 +55,10 @@ module RubyChessBoard
       if    white? then :black
       elsif black? then :white
       end
+    end
+
+    sig { abstract.params(game: Game).returns(CoordinateCollection) }
+    def raw_directional_moves(game)
     end
     
     # Returns true if the piece is white.

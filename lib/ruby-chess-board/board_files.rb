@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 module RubyChessBoard
   # Encapsulates eight {BoardFile} objects.
   class BoardFiles

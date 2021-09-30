@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 module RubyChessBoard
   # Encapsulates an x and y coordinate, which can be translated to
   # a file and a rank.

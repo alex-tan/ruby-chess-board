@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 module RubyChessBoard
   # Represents a single file made up of 8 ranks.
   class BoardFile

@@ -1,5 +1,6 @@
 # typed: strict
 require 'factory_bot'
+require 'rspec/sorbet'
 require 'rspec/its'
 
 require_relative '../lib/ruby-chess-board'

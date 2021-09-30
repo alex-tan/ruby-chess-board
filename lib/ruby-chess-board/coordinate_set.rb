@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 module RubyChessBoard
   # Encapsulates an ordered list of {Coordinate} objects.
   class CoordinateSet
